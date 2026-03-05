@@ -2,14 +2,687 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=relatorio_CEO_completo_jan_fev_2026_mocalab.html">
-<title>Primebras × Moca Lab — Relatórios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatórios Primebras × Moca Lab</title>
 <style>
-  body { font-family: 'Segoe UI', sans-serif; background: #F3673E; color: white; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-  a { color: #E4FE52; font-weight: 700; }
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --yellow:    #E4FE52;
+    --orange:    #F3673E;
+    --beige:     #F9EDE3;
+    --black:     #111111;
+    --dark-card: #222222;
+    --white:     #FFFFFF;
+    --gray-text: #444444;
+    --gray-mid:  #777777;
+    --gray-border: #E8E0D8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+    background: var(--beige);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ══════════════════════════════════
+     HEADER — Laranja
+  ══════════════════════════════════ */
+  .header {
+    background: var(--orange);
+    padding: 48px 8% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 500px; height: 500px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 5%;
+    width: 200px; height: 200px;
+    background: rgba(228,254,82,0.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 52px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .logo-text {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .logo-text span { color: var(--yellow); }
+  .logo-badge {
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    color: var(--orange);
+    background: var(--yellow);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .header-client {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    background: rgba(0,0,0,0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+
+  .header-body {
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 14px;
+  }
+
+  .header-title {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .header-title span { color: var(--yellow); }
+
+  .header-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* Stat bar */
+  .header-stats {
+    display: flex;
+    gap: 2px;
+    margin-top: 40px;
+    border-radius: 14px;
+    overflow: hidden;
+    max-width: 600px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .hstat {
+    background: rgba(0,0,0,0.2);
+    padding: 18px 22px;
+    flex: 1;
+    text-align: center;
+  }
+  .hstat-val {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--yellow);
+    display: block;
+    line-height: 1;
+  }
+  .hstat-lbl {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 5px;
+    display: block;
+  }
+
+  /* ══════════════════════════════════
+     MAIN CONTENT — Bege
+  ══════════════════════════════════ */
+  .main {
+    padding: 64px 8% 80px;
+  }
+
+  .section-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section-eyebrow::before { content: '🍃'; font-size: 0.85rem; letter-spacing: 0; }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 900;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--gray-mid);
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+
+  /* ══════════════════════════════════
+     REPORT CARDS
+  ══════════════════════════════════ */
+  .reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+  }
+
+  .report-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--gray-border);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .report-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(243,103,62,0.15);
+  }
+
+  /* Topo colorido do card */
+  .card-top {
+    padding: 28px 28px 24px;
+    position: relative;
+  }
+  .card-top.latest  { background: var(--orange); }
+  .card-top.archived { background: var(--black); }
+
+  /* Badge de status */
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .badge-latest {
+    background: var(--yellow);
+    color: var(--black);
+  }
+  .badge-latest::before { content: '⭐ '; }
+  .badge-archived {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+  }
+  .badge-presentation {
+    background: rgba(173,217,255,0.25);
+    color: #ADD9FF;
+  }
+
+  .card-period {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card-top.latest  .card-period { color: rgba(255,255,255,0.65); }
+  .card-top.archived .card-period { color: rgba(255,255,255,0.4); }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .card-top.latest  .card-title { color: var(--white); }
+  .card-top.archived .card-title { color: var(--white); }
+
+  .card-desc {
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .card-top.latest  .card-desc { color: rgba(255,255,255,0.7); }
+  .card-top.archived .card-desc { color: rgba(255,255,255,0.4); }
+
+  /* Métricas */
+  .card-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--gray-border);
+    border-top: 1px solid var(--gray-border);
+  }
+  .metric {
+    background: var(--white);
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .metric-val {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--orange);
+    display: block;
+    line-height: 1;
+  }
+  .metric-lbl {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* Footer do card */
+  .card-footer {
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--gray-border);
+    margin-top: auto;
+  }
+
+  .card-date {
+    font-size: 0.72rem;
+    color: var(--gray-mid);
+    font-weight: 600;
+  }
+
+  .card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(243,103,62,0.08);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .report-card:hover .card-btn {
+    background: var(--orange);
+    color: var(--white);
+  }
+  .card-btn::after { content: ' →'; }
+
+  /* Card arquivado — botão diferente */
+  .card-top.archived ~ .card-footer .card-btn {
+    color: var(--gray-mid);
+    background: rgba(0,0,0,0.04);
+  }
+  .report-card:hover .card-top.archived ~ * .card-btn {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  /* ══════════════════════════════════
+     SEÇÃO PRETA — Como funciona
+  ══════════════════════════════════ */
+  .how-section {
+    background: var(--black);
+    padding: 64px 8%;
+    margin-top: 0;
+  }
+
+  .how-section .section-eyebrow {
+    color: var(--yellow);
+  }
+  .how-section .section-eyebrow::before { content: ''; }
+  .how-section .section-title { color: var(--yellow); }
+  .how-section .section-sub { color: rgba(255,255,255,0.5); margin-bottom: 40px; }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .how-card {
+    background: var(--dark-card);
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .how-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  .how-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .how-text {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  /* ══════════════════════════════════
+     FOOTER
+  ══════════════════════════════════ */
+  .footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 28px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-logo {
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .footer-logo span { color: var(--yellow); }
+
+  .footer-text {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    font-weight: 500;
+  }
+
+  .footer-link {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--yellow); }
+
+  /* ══════════════════════════════════
+     DIVIDERS
+  ══════════════════════════════════ */
+  .divider-orange { height: 5px; background: var(--orange); }
+  .divider-yellow { height: 5px; background: var(--yellow); }
+
+  /* ══════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════ */
+  @media (max-width: 768px) {
+    .header { padding: 36px 6% 48px; }
+    .main { padding: 48px 6% 60px; }
+    .how-section { padding: 48px 6%; }
+    .footer { padding: 24px 6%; }
+    .header-top { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .reports-grid { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; }
+    .header-stats { flex-wrap: wrap; }
+    .footer { flex-direction: column; text-align: center; }
+  }
 </style>
 </head>
 <body>
-  <p>Redirecionando... <a href="relatorio_CEO_completo_jan_fev_2026_mocalab.html">Clique aqui se não redirecionar.</a></p>
+
+<!-- ══════════════════════════════════════════
+  HEADER — Laranja
+══════════════════════════════════════════ -->
+<header class="header">
+
+  <div class="header-top">
+    <a class="logo" href="#">
+      <span class="logo-text"><span>MO</span>CA</span>
+      <span class="logo-badge">lab</span>
+    </a>
+    <span class="header-client">Cliente: Primebras</span>
+  </div>
+
+  <div class="header-body">
+    <div class="header-eyebrow">Central de relatórios</div>
+    <h1 class="header-title">Performance<br><span>Digital</span></h1>
+    <p class="header-sub">
+      Acompanhe o histórico completo de resultados de tráfego pago da Primebras.
+      Meta Ads + Google Ads, mês a mês.
+    </p>
+
+    <div class="header-stats">
+      <div class="hstat">
+        <span class="hstat-val">4,39x</span>
+        <span class="hstat-lbl">ROAS atual</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val">R$ 33.105</span>
+        <span class="hstat-lbl">Receita Fev/26</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val">37</span>
+        <span class="hstat-lbl">Compras Fev/26</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<div class="divider-yellow"></div>
+
+<!-- ══════════════════════════════════════════
+  RELATÓRIOS — Bege
+══════════════════════════════════════════ -->
+<main class="main">
+
+  <div class="section-eyebrow">Histórico</div>
+  <h2 class="section-title">Todos os Relatórios</h2>
+  <p class="section-sub">Clique em qualquer relatório para abrir.</p>
+
+  <div class="reports-grid">
+
+    <!-- ─── RELATÓRIO MAIS RECENTE ─── -->
+    <a class="report-card" href="relatorio_CEO_completo_jan_fev_2026_mocalab.html">
+      <div class="card-top latest">
+        <span class="card-badge badge-latest">Mais recente</span>
+        <div class="card-period">Janeiro → Fevereiro 2026</div>
+        <div class="card-title">Relatório CEO<br>Jan vs Fev 2026</div>
+        <div class="card-desc">Meta Ads + Google Ads consolidados · Identidade Moca Lab</div>
+      </div>
+      <div class="card-metrics">
+        <div class="metric">
+          <span class="metric-val">3,01x</span>
+          <span class="metric-lbl">ROAS</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">R$ 33k</span>
+          <span class="metric-lbl">Receita</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">37</span>
+          <span class="metric-lbl">Compras</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">📅 Março 2026</span>
+        <span class="card-btn">Ver relatório</span>
+      </div>
+    </a>
+
+    <!-- ─── APRESENTAÇÃO CEO ─── -->
+    <a class="report-card" href="apresentacao_CEO_fevereiro_2026.html">
+      <div class="card-top archived">
+        <span class="card-badge badge-presentation">Apresentação</span>
+        <div class="card-period">Fevereiro 2026</div>
+        <div class="card-title">Apresentação CEO<br>Fevereiro 2026</div>
+        <div class="card-desc">Meta Ads · Pitch deck executivo · Tema escuro dourado</div>
+      </div>
+      <div class="card-metrics">
+        <div class="metric">
+          <span class="metric-val">3,56x</span>
+          <span class="metric-lbl">ROAS</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">R$ 19,6k</span>
+          <span class="metric-lbl">Receita</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">20</span>
+          <span class="metric-lbl">Compras</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">📅 Março 2026</span>
+        <span class="card-btn">Ver relatório</span>
+      </div>
+    </a>
+
+    <!-- ─── RELATÓRIO JAN vs FEV (versão dark blue) ─── -->
+    <a class="report-card" href="relatorio_CEO_completo_jan_fev_2026.html">
+      <div class="card-top archived">
+        <span class="card-badge badge-archived">Arquivado</span>
+        <div class="card-period">Janeiro → Fevereiro 2026</div>
+        <div class="card-title">Relatório CEO<br>Jan vs Fev 2026</div>
+        <div class="card-desc">Meta Ads + Google Ads · Tema escuro azul</div>
+      </div>
+      <div class="card-metrics">
+        <div class="metric">
+          <span class="metric-val">3,01x</span>
+          <span class="metric-lbl">ROAS</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">R$ 33k</span>
+          <span class="metric-lbl">Receita</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">37</span>
+          <span class="metric-lbl">Compras</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">📅 Março 2026</span>
+        <span class="card-btn">Ver relatório</span>
+      </div>
+    </a>
+
+    <!-- ─── COMPARATIVO ANTES/DEPOIS ─── -->
+    <a class="report-card" href="relatorio_comparativo%2001.02%20-%2023.02%20vs%2024.02%20-%2003.03.html">
+      <div class="card-top archived">
+        <span class="card-badge badge-archived">Arquivado</span>
+        <div class="card-period">01/02 – 23/02 vs 24/02 – 03/03</div>
+        <div class="card-title">Comparativo<br>Antes × Depois</div>
+        <div class="card-desc">Meta Ads · Impacto das mudanças de 24/02/2026</div>
+      </div>
+      <div class="card-metrics">
+        <div class="metric">
+          <span class="metric-val">Meta</span>
+          <span class="metric-lbl">Plataforma</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">Fev</span>
+          <span class="metric-lbl">Período</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">2026</span>
+          <span class="metric-lbl">Ano</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">📅 Março 2026</span>
+        <span class="card-btn">Ver relatório</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<div class="divider-orange"></div>
+
+<!-- ══════════════════════════════════════════
+  COMO FUNCIONA — Preto
+══════════════════════════════════════════ -->
+<section class="how-section">
+
+  <div class="section-eyebrow">Processo</div>
+  <h2 class="section-title">Como funciona</h2>
+  <p class="section-sub">Do dado bruto ao relatório publicado.</p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-title">Coleta de dados</div>
+      <div class="how-text">Meta Ads via API automática. Google Ads via exportação de CSV com todas as métricas de campanha.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">Análise e relatório</div>
+      <div class="how-text">Dados consolidados em relatório HTML interativo com KPIs, comparativos e projeções de escala.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Publicação automática</div>
+      <div class="how-text">Relatório publicado via GitHub → Vercel. Disponível nesta página em menos de 30 segundos.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+  FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo"><span>MO</span>CA<span style="color:rgba(255,255,255,0.3);font-weight:400;font-size:0.8rem;margin-left:6px;">lab</span></div>
+  <span class="footer-text">Laboratório de Marketing · Gestão de tráfego pago para Primebras</span>
+  <a class="footer-link" href="https://github.com/danilofalcaoa/primebras-relatorios" target="_blank">Ver no GitHub ↗</a>
+</footer>
+
 </body>
 </html>
