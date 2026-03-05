@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Digital — Jan vs Fev 2026 | Primebras × Moca Lab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --yellow:  #E4FE52;
+    --orange:  #F3673E;
+    --beige:   #F9EDE3;
+    --blue:    #ADD9FF;
+    --pink:    #FFB2B5;
+    --black:   #111111;
+    --dark-card: #222222;
+    --white:   #FFFFFF;
+    --gray-text: #444444;
+    --gray-mid:  #777777;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+    background: var(--beige);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══════════════════════════════════════════
+     CAPA — Fundo laranja (igual ao hero do site)
+  ═══════════════════════════════════════════ */
+  .cover {
+    min-height: 100vh;
+    background: var(--orange);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* decoração blob top-right */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* logo Moca Lab na capa */
+  .cover-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 60px;
+  }
+  .cover-logo-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+  .cover-logo-text span { color: var(--yellow); }
+  .cover-logo-badge {
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    color: var(--orange);
+    background: var(--yellow);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .cover-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 16px;
+  }
+
+  .cover-title {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    max-width: 700px;
+  }
+  .cover-title span { color: var(--yellow); }
+
+  .cover-subtitle {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 60px;
+    max-width: 480px;
+  }
+
+  /* 4 números de destaque na capa */
+  .cover-numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    width: 100%;
+    max-width: 820px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .cover-num-card {
+    background: rgba(0,0,0,0.25);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .cover-num-val {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--yellow);
+    display: block;
+    line-height: 1;
+  }
+  .cover-num-lbl {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    display: block;
+  }
+
+  .cover-period {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════
+     SEÇÃO BEIGE — fundo padrão das seções claras
+  ═══════════════════════════════════════════ */
+  .section-beige {
+    background: var(--beige);
+    padding: 80px 8%;
+  }
+
+  /* ═══════════════════════════════════════════
+     SEÇÃO PRETA — seções escuras com amarelo
+  ═══════════════════════════════════════════ */
+  .section-dark {
+    background: var(--black);
+    padding: 80px 8%;
+    color: var(--white);
+  }
+
+  /* ═══════════════════════════════════════════
+     SEÇÃO LARANJA — CTA/projeções
+  ═══════════════════════════════════════════ */
+  .section-orange {
+    background: var(--orange);
+    padding: 80px 8%;
+    color: var(--white);
+  }
+
+  /* ─── Labels e títulos de seção ─── */
+  .section-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-eyebrow::before {
+    content: '🍃';
+    font-size: 0.9rem;
+    letter-spacing: 0;
+  }
+
+  .section-dark .section-eyebrow {
+    color: var(--yellow);
+  }
+  .section-dark .section-eyebrow::before { content: ''; }
+  .section-orange .section-eyebrow {
+    color: rgba(255,255,255,0.7);
+  }
+  .section-orange .section-eyebrow::before { content: ''; }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 900;
+    color: var(--orange);
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .section-dark .section-title {
+    color: var(--yellow);
+  }
+
+  .section-orange .section-title {
+    color: var(--white);
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--gray-text);
+    max-width: 600px;
+    margin-bottom: 48px;
+    font-weight: 500;
+  }
+  .section-dark .section-subtitle {
+    color: rgba(255,255,255,0.6);
+  }
+  .section-orange .section-subtitle {
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ─── KPI Grid ─── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .kpi-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .kpi-card.orange::before { background: var(--orange); }
+  .kpi-card.yellow::before { background: var(--yellow); }
+  .kpi-card.blue::before   { background: var(--blue); }
+  .kpi-card.pink::before   { background: var(--pink); }
+
+  /* KPI em seção escura */
+  .section-dark .kpi-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: none;
+  }
+
+  .kpi-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 10px;
+  }
+  .section-dark .kpi-label { color: rgba(255,255,255,0.45); }
+
+  .kpi-value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--black);
+    line-height: 1;
+  }
+  .section-dark .kpi-value { color: var(--white); }
+
+  .kpi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--yellow);
+    color: var(--black);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+  .kpi-badge.down {
+    background: var(--pink);
+    color: var(--black);
+  }
+
+  .kpi-note {
+    font-size: 0.7rem;
+    color: var(--gray-mid);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .section-dark .kpi-note { color: rgba(255,255,255,0.4); }
+
+  /* ─── Insight box (seção escura) ─── */
+  .insight-box {
+    background: rgba(228,254,82,0.07);
+    border: 1px solid rgba(228,254,82,0.3);
+    border-radius: 16px;
+    padding: 32px 36px;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .insight-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+  .insight-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+  }
+  .insight-text strong {
+    color: var(--yellow);
+    font-weight: 800;
+  }
+
+  /* insight box no beige */
+  .insight-box-beige {
+    background: rgba(243,103,62,0.07);
+    border: 1px solid rgba(243,103,62,0.2);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-top: 36px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .insight-box-beige .insight-icon { font-size: 2rem; }
+  .insight-box-beige .insight-text {
+    color: var(--gray-text);
+    font-size: 0.98rem;
+  }
+  .insight-box-beige .insight-text strong { color: var(--orange); }
+
+  /* ─── Platform comparison cards ─── */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .platform-card {
+    border-radius: 20px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .platform-card.meta {
+    background: var(--white);
+    border: 2px solid rgba(0,0,0,0.08);
+  }
+  .platform-card.google {
+    background: var(--black);
+    border: 2px solid rgba(255,255,255,0.05);
+  }
+
+  .platform-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .platform-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 900;
+    font-style: italic;
+  }
+  .platform-icon.meta-icon {
+    background: #1877F2;
+    color: white;
+  }
+  .platform-icon.google-icon {
+    background: var(--yellow);
+    color: var(--black);
+    font-style: normal;
+    font-size: 1rem;
+  }
+
+  .platform-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+  .platform-card.meta .platform-name { color: var(--black); }
+  .platform-card.google .platform-name { color: var(--white); }
+
+  .platform-period {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .platform-card.google .platform-period { color: rgba(255,255,255,0.4); }
+
+  .platform-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .platform-stat {}
+  .ps-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray-mid);
+    margin-bottom: 4px;
+  }
+  .platform-card.google .ps-label { color: rgba(255,255,255,0.4); }
+  .ps-val {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--black);
+  }
+  .platform-card.google .ps-val { color: var(--yellow); }
+
+  .platform-roas-badge {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+  .meta-roas-badge {
+    background: var(--orange);
+    color: var(--white);
+  }
+  .google-roas-badge {
+    background: var(--yellow);
+    color: var(--black);
+  }
+
+  /* ─── Barras comparativas ─── */
+  .bars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .bar-item {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 24px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .section-dark .bar-item {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .bar-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gray-mid);
+    margin-bottom: 14px;
+  }
+  .section-dark .bar-label { color: rgba(255,255,255,0.45); }
+
+  .bar-row {
+    margin-bottom: 10px;
+  }
+  .bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .bar-period {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gray-mid);
+  }
+  .section-dark .bar-period { color: rgba(255,255,255,0.45); }
+  .bar-amount {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--black);
+  }
+  .section-dark .bar-amount { color: var(--white); }
+
+  .bar-track {
+    height: 10px;
+    background: rgba(0,0,0,0.07);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .section-dark .bar-track { background: rgba(255,255,255,0.08); }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+  .bar-fill.jan { background: #CCCCCC; }
+  .bar-fill.fev { background: var(--orange); }
+  .section-dark .bar-fill.fev { background: var(--yellow); }
+
+  .bar-delta {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--orange);
+    margin-top: 8px;
+    display: block;
+  }
+  .section-dark .bar-delta { color: var(--yellow); }
+
+  /* ─── Tabela de campanhas ─── */
+  .table-wrap {
+    overflow-x: auto;
+    margin-top: 36px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  thead tr {
+    background: rgba(255,255,255,0.05);
+  }
+  th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody tr:last-child { border-bottom: none; }
+
+  td {
+    padding: 14px 16px;
+    color: rgba(255,255,255,0.8);
+    vertical-align: middle;
+  }
+  td strong { color: var(--white); font-weight: 700; }
+
+  .roas-chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    background: var(--yellow);
+    color: var(--black);
+  }
+  .roas-chip.med {
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
+  }
+  .roas-chip.na {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.35);
+  }
+
+  .camp-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 6px;
+  }
+  .tag-b2c { background: rgba(173,217,255,0.2); color: var(--blue); }
+  .tag-b2b { background: rgba(255,178,181,0.2); color: var(--pink); }
+
+  /* ─── Campanhas destaque ─── */
+  .stars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .star-card {
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .star-card.meta-star {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .star-card.google-star {
+    background: var(--dark-card);
+    border: 1px solid rgba(228,254,82,0.1);
+  }
+
+  .star-platform {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .star-platform.meta { background: #1877F2; color: white; }
+  .star-platform.google { background: var(--yellow); color: var(--black); }
+
+  .star-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .star-card.meta-star .star-name { color: var(--gray-text); }
+  .star-card.google-star .star-name { color: rgba(255,255,255,0.7); }
+
+  .star-roas {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .star-card.meta-star .star-roas { color: var(--orange); }
+  .star-card.google-star .star-roas { color: var(--yellow); }
+
+  .star-roas-lbl {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .star-card.meta-star .star-roas-lbl { color: var(--gray-mid); }
+  .star-card.google-star .star-roas-lbl { color: rgba(255,255,255,0.4); }
+
+  .star-cpa {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .star-card.meta-star .star-cpa { color: var(--gray-text); }
+  .star-card.google-star .star-cpa { color: rgba(255,255,255,0.6); }
+
+  /* ─── Projeções ─── */
+  .proj-intro {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    max-width: 600px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    line-height: 1.7;
+  }
+  .proj-intro strong { color: var(--yellow); }
+
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .proj-card {
+    border-radius: 20px;
+    padding: 36px 28px;
+    text-align: center;
+  }
+
+  .proj-card.conservador {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .proj-card.recomendado {
+    background: var(--yellow);
+  }
+  .proj-card.agressivo {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(228,254,82,0.2);
+  }
+
+  .proj-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .proj-card.conservador .proj-tag { color: rgba(255,255,255,0.6); }
+  .proj-card.recomendado .proj-tag { color: var(--orange); }
+  .proj-card.agressivo .proj-tag { color: var(--yellow); }
+
+  .proj-invest {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .proj-card.conservador .proj-invest { color: rgba(255,255,255,0.7); }
+  .proj-card.recomendado .proj-invest { color: rgba(0,0,0,0.6); }
+  .proj-card.agressivo .proj-invest { color: rgba(255,255,255,0.6); }
+
+  .proj-receita {
+    font-size: 2.6rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .proj-card.conservador .proj-receita { color: var(--white); }
+  .proj-card.recomendado .proj-receita { color: var(--black); }
+  .proj-card.agressivo .proj-receita { color: var(--yellow); }
+
+  .proj-lbl {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+  }
+  .proj-card.conservador .proj-lbl { color: rgba(255,255,255,0.45); }
+  .proj-card.recomendado .proj-lbl { color: rgba(0,0,0,0.5); }
+  .proj-card.agressivo .proj-lbl { color: rgba(228,254,82,0.5); }
+
+  .proj-lucro {
+    font-size: 1.1rem;
+    font-weight: 800;
+    border-top: 1px solid;
+    padding-top: 14px;
+  }
+  .proj-card.conservador .proj-lucro { color: var(--yellow); border-color: rgba(255,255,255,0.1); }
+  .proj-card.recomendado .proj-lucro { color: var(--black); border-color: rgba(0,0,0,0.15); }
+  .proj-card.agressivo .proj-lucro { color: var(--yellow); border-color: rgba(228,254,82,0.15); }
+
+  .proj-note {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  /* ─── Conclusão ─── */
+  .conclusion-body {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.8;
+    max-width: 680px;
+    margin-bottom: 48px;
+    font-weight: 500;
+  }
+  .conclusion-body strong { color: var(--yellow); }
+
+  /* CTA Box na conclusão */
+  .cta-box {
+    background: var(--yellow);
+    border-radius: 20px;
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .cta-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .cta-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  .cta-stat {}
+  .cs-val {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--black);
+    display: block;
+    line-height: 1;
+  }
+  .cs-lbl {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.55);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ─── Separador de seção ─── */
+  .section-divider {
+    height: 6px;
+    background: var(--orange);
+  }
+  .section-divider.yellow { background: var(--yellow); }
+
+  /* ─── Footer ─── */
+  .footer {
+    background: var(--black);
+    padding: 36px 8%;
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+    line-height: 1.8;
+  }
+  .footer strong { color: rgba(255,255,255,0.6); }
+
+  /* ─── Responsivo ─── */
+  @media (max-width: 768px) {
+    .cover-numbers { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .platform-grid { grid-template-columns: 1fr; }
+    .bars-grid { grid-template-columns: 1fr; }
+    .stars-grid { grid-template-columns: 1fr; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .cover { padding: 60px 6%; }
+    .section-beige, .section-dark, .section-orange { padding: 60px 6%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+  CAPA — Laranja, igual ao Hero do site Moca Lab
+══════════════════════════════════════════════════ -->
+<div class="cover">
+
+  <div class="cover-logo">
+    <span class="cover-logo-text"><span>MO</span>CA</span>
+    <span class="cover-logo-badge">lab</span>
+  </div>
+
+  <div class="cover-eyebrow">Relatório de performance · Primebras</div>
+
+  <h1 class="cover-title">
+    Janeiro vs<br><span>Fevereiro</span><br>2026.
+  </h1>
+
+  <p class="cover-subtitle">
+    Meta Ads + Google Ads consolidados.<br>
+    Diagnóstico 360 dos canais de tráfego pago.
+  </p>
+
+  <div class="cover-numbers">
+    <div class="cover-num-card">
+      <span class="cover-num-val">R$ 10.981</span>
+      <span class="cover-num-lbl">Investimento Fev</span>
+    </div>
+    <div class="cover-num-card">
+      <span class="cover-num-val">R$ 33.105</span>
+      <span class="cover-num-lbl">Receita Fev</span>
+    </div>
+    <div class="cover-num-card">
+      <span class="cover-num-val">3,01x</span>
+      <span class="cover-num-lbl">ROAS combinado</span>
+    </div>
+    <div class="cover-num-card">
+      <span class="cover-num-val">+81,1%</span>
+      <span class="cover-num-lbl">Crescimento</span>
+    </div>
+  </div>
+
+  <p class="cover-period">Período: 01/01/2026 a 28/02/2026 · Meta Ads + Google Ads</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+  RESUMO CONSOLIDADO — Beige
+══════════════════════════════════════════════════ -->
+<div class="section-beige">
+
+  <div class="section-eyebrow">Visão geral</div>
+  <h2 class="section-title">Resultado Consolidado</h2>
+  <p class="section-subtitle">Meta Ads + Google Ads · Comparativo Janeiro vs Fevereiro 2026</p>
+
+  <div class="kpi-grid">
+
+    <div class="kpi-card orange">
+      <div class="kpi-label">Investimento Total</div>
+      <div class="kpi-value">R$ 10.981</div>
+      <div class="kpi-badge">+18,5% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 9.266</div>
+    </div>
+
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Receita Total</div>
+      <div class="kpi-value">R$ 33.105</div>
+      <div class="kpi-badge">+81,1% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 18.276</div>
+    </div>
+
+    <div class="kpi-card blue">
+      <div class="kpi-label">ROAS Combinado</div>
+      <div class="kpi-value">3,01x</div>
+      <div class="kpi-badge">+52,8% vs Jan</div>
+      <div class="kpi-note">Jan: 1,97x</div>
+    </div>
+
+    <div class="kpi-card pink">
+      <div class="kpi-label">Compras Geradas</div>
+      <div class="kpi-value">37</div>
+      <div class="kpi-badge">+60,9% vs Jan</div>
+      <div class="kpi-note">Jan: ~23 compras</div>
+    </div>
+
+    <div class="kpi-card orange">
+      <div class="kpi-label">CPA por Compra</div>
+      <div class="kpi-value">R$ 297</div>
+      <div class="kpi-badge">-27,2% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 408</div>
+    </div>
+
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Lucro sobre Invest.</div>
+      <div class="kpi-value">R$ 22.124</div>
+      <div class="kpi-badge">+81,1% vs Jan</div>
+      <div class="kpi-note">Receita − Investimento</div>
+    </div>
+
+  </div>
+
+  <div class="insight-box-beige">
+    <div class="insight-icon">🚀</div>
+    <div class="insight-text">
+      Com apenas <strong>+18,5% de investimento adicional</strong>, a receita cresceu <strong>+81,1%</strong>.
+      Isso demonstra que a estrutura das campanhas está bem calibrada — o próximo passo é escalar com segurança.
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════
+  COMPARATIVO POR PLATAFORMA — Preto
+══════════════════════════════════════════════════ -->
+<div class="section-dark">
+
+  <div class="section-eyebrow">Por plataforma</div>
+  <h2 class="section-title">Meta Ads vs Google Ads</h2>
+  <p class="section-subtitle">Desempenho de cada plataforma em Fevereiro 2026</p>
+
+  <div class="platform-grid">
+
+    <!-- Meta -->
+    <div class="platform-card meta">
+      <div class="platform-header">
+        <div class="platform-icon meta-icon">f</div>
+        <div>
+          <div class="platform-name">Meta Ads</div>
+          <div class="platform-period">Facebook + Instagram</div>
+        </div>
+      </div>
+      <div class="platform-stats">
+        <div class="platform-stat">
+          <div class="ps-label">Investimento</div>
+          <div class="ps-val">R$ 5.522</div>
+        </div>
+        <div class="platform-stat">
+          <div class="ps-label">Receita</div>
+          <div class="ps-val">R$ 19.634</div>
+        </div>
+        <div class="platform-stat">
+          <div class="ps-label">Compras</div>
+          <div class="ps-val">20</div>
+        </div>
+        <div class="platform-stat">
+          <div class="ps-label">CPA</div>
+          <div class="ps-val">R$ 276</div>
+        </div>
+      </div>
+      <div class="platform-roas-badge meta-roas-badge">🔥 ROAS 3,56x</div>
+    </div>
+
+    <!-- Google -->
+    <div class="platform-card google">
+      <div class="platform-header">
+        <div class="platform-icon google-icon">G</div>
+        <div>
+          <div class="platform-name">Google Ads</div>
+          <div class="platform-period">Search + Performance Max + Display</div>
+        </div>
+      </div>
+      <div class="platform-stats">
+        <div class="platform-stat">
+          <div class="ps-label">Investimento</div>
+          <div class="ps-val">R$ 5.459</div>
+        </div>
+        <div class="platform-stat">
+          <div class="ps-label">Receita</div>
+          <div class="ps-val">R$ 13.472</div>
+        </div>
+        <div class="platform-stat">
+          <div class="ps-label">Compras</div>
+          <div class="ps-val">17</div>
+        </div>
+        <div class="platform-stat">
+          <div class="ps-label">CPA</div>
+          <div class="ps-val">R$ 321</div>
+        </div>
+      </div>
+      <div class="platform-roas-badge google-roas-badge">⚡ ROAS 2,47x</div>
+    </div>
+
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-icon">💡</div>
+    <div class="insight-text">
+      O <strong>Meta Ads lidera em ROAS</strong> (3,56x vs 2,47x do Google), mas o Google sustenta volume de compras com
+      demanda ativa via Search. A combinação das duas plataformas resulta num ecossistema mais resiliente e
+      com <strong>ROAS combinado de 3,01x</strong>.
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider yellow"></div>
+
+<!-- ══════════════════════════════════════════════════
+  META ADS DETALHADO — Beige
+══════════════════════════════════════════════════ -->
+<div class="section-beige">
+
+  <div class="section-eyebrow">Meta Ads</div>
+  <h2 class="section-title">Facebook + Instagram Ads</h2>
+  <p class="section-subtitle">Comparativo Janeiro vs Fevereiro 2026</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card orange">
+      <div class="kpi-label">Investimento</div>
+      <div class="kpi-value">R$ 5.522</div>
+      <div class="kpi-badge">+36,7% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 4.041</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Receita</div>
+      <div class="kpi-value">R$ 19.634</div>
+      <div class="kpi-badge">+115,7% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 9.103</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">ROAS</div>
+      <div class="kpi-value">3,56x</div>
+      <div class="kpi-badge">+58,2% vs Jan</div>
+      <div class="kpi-note">Jan: 2,25x</div>
+    </div>
+    <div class="kpi-card pink">
+      <div class="kpi-label">Compras</div>
+      <div class="kpi-value">20</div>
+      <div class="kpi-badge">+100% vs Jan</div>
+      <div class="kpi-note">Jan: 10 compras</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">CPA</div>
+      <div class="kpi-value">R$ 276</div>
+      <div class="kpi-badge">-31,7% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 404</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Impressões</div>
+      <div class="kpi-value">392 mil</div>
+      <div class="kpi-badge">Estável</div>
+      <div class="kpi-note">Jan: 392 mil</div>
+    </div>
+  </div>
+
+  <div class="bars-grid" style="margin-top:40px;">
+    <div class="bar-item">
+      <div class="bar-label">Investimento (R$)</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">R$ 4.041</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:73%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">R$ 5.522</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +36,7%</span>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label">Receita (R$)</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">R$ 9.103</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:46%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">R$ 19.634</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +115,7%</span>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label">Compras</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">10</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:50%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">20</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +100%</span>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label">ROAS</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">2,25x</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:63%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">3,56x</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +58,2%</span>
+    </div>
+  </div>
+
+  <div class="insight-box-beige" style="margin-top:40px;">
+    <div class="insight-icon">🎯</div>
+    <div class="insight-text">
+      Em Fevereiro, o Meta entregou as <strong>mesmas 392 mil impressões</strong> de Janeiro com
+      <strong>2× mais compras e 115,7% mais receita</strong>. O crescimento veio de otimização criativa e de público — não de mais verba.
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════
+  GOOGLE ADS DETALHADO — Preto
+══════════════════════════════════════════════════ -->
+<div class="section-dark">
+
+  <div class="section-eyebrow">Google Ads</div>
+  <h2 class="section-title">Search + Performance Max + Display</h2>
+  <p class="section-subtitle">Comparativo Janeiro vs Fevereiro 2026</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card orange">
+      <div class="kpi-label">Investimento</div>
+      <div class="kpi-value">R$ 5.459</div>
+      <div class="kpi-badge">+4,5% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 5.225</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Receita</div>
+      <div class="kpi-value">R$ 13.472</div>
+      <div class="kpi-badge">+46,9% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 9.173</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">ROAS</div>
+      <div class="kpi-value">2,47x</div>
+      <div class="kpi-badge">+40,3% vs Jan</div>
+      <div class="kpi-note">Jan: 1,76x</div>
+    </div>
+    <div class="kpi-card pink">
+      <div class="kpi-label">Compras</div>
+      <div class="kpi-value">17</div>
+      <div class="kpi-badge">+33,5% vs Jan</div>
+      <div class="kpi-note">Jan: ~12,7</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">CPA</div>
+      <div class="kpi-value">R$ 321</div>
+      <div class="kpi-badge">-21,8% vs Jan</div>
+      <div class="kpi-note">Jan: R$ 411</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Cliques</div>
+      <div class="kpi-value">8.546</div>
+      <div class="kpi-badge">-5,6% vs Jan</div>
+      <div class="kpi-note">Jan: 9.049</div>
+    </div>
+  </div>
+
+  <div class="bars-grid">
+    <div class="bar-item">
+      <div class="bar-label">Investimento (R$)</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">R$ 5.225</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:96%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">R$ 5.459</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +4,5%</span>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label">Receita (R$)</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">R$ 9.173</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:68%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">R$ 13.472</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +46,9%</span>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label">Compras</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">12,7</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:75%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">17</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +33,5%</span>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label">ROAS</div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Janeiro</span><span class="bar-amount">1,76x</span></div>
+        <div class="bar-track"><div class="bar-fill jan" style="width:71%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span class="bar-period">Fevereiro</span><span class="bar-amount">2,47x</span></div>
+        <div class="bar-track"><div class="bar-fill fev" style="width:100%"></div></div>
+      </div>
+      <span class="bar-delta">▲ +40,3%</span>
+    </div>
+  </div>
+
+  <!-- Tabela de campanhas Google -->
+  <div style="margin-top:48px;">
+    <div class="section-eyebrow" style="margin-bottom:16px;">Campanhas ativas</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Campanha</th>
+            <th>Tipo</th>
+            <th>Investimento</th>
+            <th>Receita</th>
+            <th>ROAS</th>
+            <th>Compras</th>
+            <th>CPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>[B2C] Pmax Fechaduras</strong></td>
+            <td>Performance Max</td>
+            <td>R$ 1.368</td>
+            <td>R$ 7.914</td>
+            <td><span class="roas-chip">5,78x</span></td>
+            <td>8,3</td>
+            <td>R$ 165</td>
+          </tr>
+          <tr>
+            <td><strong>[B2C] Search Institucional</strong></td>
+            <td>Pesquisa</td>
+            <td>R$ 1.505</td>
+            <td>R$ 2.795</td>
+            <td><span class="roas-chip med">1,86x</span></td>
+            <td>5,4</td>
+            <td>R$ 278</td>
+          </tr>
+          <tr>
+            <td><strong>[B2C] Pmax Automações</strong></td>
+            <td>Performance Max</td>
+            <td>R$ 240</td>
+            <td>R$ 823</td>
+            <td><span class="roas-chip">3,43x</span></td>
+            <td>1,3</td>
+            <td>R$ 186</td>
+          </tr>
+          <tr>
+            <td><strong>[B2C] Display Rmkt</strong></td>
+            <td>Display</td>
+            <td>R$ 303</td>
+            <td>R$ 500</td>
+            <td><span class="roas-chip med">1,65x</span></td>
+            <td>1,0</td>
+            <td>R$ 303</td>
+          </tr>
+          <tr>
+            <td><strong>[B2B] Search Revendedores</strong></td>
+            <td>Pesquisa</td>
+            <td>R$ 1.218</td>
+            <td>R$ 1.440</td>
+            <td><span class="roas-chip med">1,18x</span></td>
+            <td>1,0 <span style="font-size:0.65rem;opacity:0.5">*</span></td>
+            <td>R$ 1.218</td>
+          </tr>
+          <tr>
+            <td><strong>[B2B] Search Airbnb</strong></td>
+            <td>Pesquisa</td>
+            <td>R$ 824</td>
+            <td>—</td>
+            <td><span class="roas-chip na">Leads</span></td>
+            <td>— <span style="font-size:0.65rem;opacity:0.5">**</span></td>
+            <td>R$ 7,92</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:12px;line-height:1.6;">
+      * Campanhas B2B medem leads como conversão principal. Receita de venda pode ser registrada manualmente.<br>
+      ** [B2B] Airbnb: foco em leads/contatos, não compras e-commerce. CPA = custo por lead.
+    </p>
+  </div>
+
+</div>
+
+<div class="section-divider yellow"></div>
+
+<!-- ══════════════════════════════════════════════════
+  CAMPANHAS ESTRELA — Beige
+══════════════════════════════════════════════════ -->
+<div class="section-beige">
+
+  <div class="section-eyebrow">Top performance</div>
+  <h2 class="section-title">Campanhas Destaque</h2>
+  <p class="section-subtitle">As campanhas com melhor ROAS em Fevereiro 2026</p>
+
+  <div class="stars-grid">
+
+    <div class="star-card meta-star">
+      <span class="star-platform meta">Meta Ads</span>
+      <div class="star-name">VENDAS – CBO – Melhores Criativos</div>
+      <div class="star-roas">6,20x</div>
+      <div class="star-roas-lbl">ROAS Fevereiro</div>
+      <div class="star-cpa">CPA: R$ 149 por compra</div>
+    </div>
+
+    <div class="star-card meta-star">
+      <span class="star-platform meta">Meta Ads</span>
+      <div class="star-name">[Conv.] Compra – Público Frio</div>
+      <div class="star-roas">4,63x</div>
+      <div class="star-roas-lbl">ROAS Fevereiro</div>
+      <div class="star-cpa">CPA: R$ 218 por compra</div>
+    </div>
+
+    <div class="star-card meta-star">
+      <span class="star-platform meta">Meta Ads</span>
+      <div class="star-name">COST OG – ADV – [Conv.] Remarketing</div>
+      <div class="star-roas">4,44x</div>
+      <div class="star-roas-lbl">ROAS Fevereiro</div>
+      <div class="star-cpa">CPA: R$ 228 por compra</div>
+    </div>
+
+    <div class="star-card google-star">
+      <span class="star-platform google">Google Ads</span>
+      <div class="star-name">[B2C] Pmax – Brasil – Fechaduras</div>
+      <div class="star-roas">5,78x</div>
+      <div class="star-roas-lbl">ROAS Fevereiro</div>
+      <div class="star-cpa">CPA: R$ 165 por compra</div>
+    </div>
+
+    <div class="star-card google-star">
+      <span class="star-platform google">Google Ads</span>
+      <div class="star-name">[B2C] Performance Max – Automações</div>
+      <div class="star-roas">3,43x</div>
+      <div class="star-roas-lbl">ROAS Fevereiro</div>
+      <div class="star-cpa">CPA: R$ 186 por compra</div>
+    </div>
+
+    <div class="star-card google-star">
+      <span class="star-platform google">Google Ads</span>
+      <div class="star-name">[B2C] Search – Institucional – Brasil</div>
+      <div class="star-roas">1,86x</div>
+      <div class="star-roas-lbl">ROAS Fevereiro</div>
+      <div class="star-cpa">CPA: R$ 278 por compra</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════
+  PROJEÇÕES — Laranja (igual às seções de CTA do site)
+══════════════════════════════════════════════════ -->
+<div class="section-orange">
+
+  <div class="section-eyebrow">Simulação de escala</div>
+  <h2 class="section-title">Projeções de Crescimento</h2>
+
+  <!-- Tendência de ROAS -->
+  <div style="display:flex;align-items:center;gap:0;margin-bottom:40px;flex-wrap:wrap;">
+    <div style="background:rgba(0,0,0,0.2);border-radius:16px 0 0 16px;padding:24px 28px;text-align:center;min-width:160px;">
+      <div style="font-size:0.62rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:8px;">Janeiro 2026</div>
+      <div style="font-size:2rem;font-weight:900;color:rgba(255,255,255,0.7);">1,97x</div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:4px;">ROAS combinado</div>
+    </div>
+    <div style="font-size:1.8rem;color:rgba(255,255,255,0.3);padding:0 6px;">→</div>
+    <div style="background:rgba(0,0,0,0.25);padding:24px 28px;text-align:center;min-width:160px;">
+      <div style="font-size:0.62rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:8px;">Fevereiro 2026</div>
+      <div style="font-size:2rem;font-weight:900;color:rgba(255,255,255,0.85);">3,01x</div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:4px;">ROAS combinado</div>
+    </div>
+    <div style="font-size:1.8rem;color:rgba(255,255,255,0.3);padding:0 6px;">→</div>
+    <div style="background:var(--yellow);border-radius:0 16px 16px 0;padding:24px 28px;text-align:center;min-width:180px;position:relative;">
+      <div style="font-size:0.62rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.55);margin-bottom:8px;">Últimos 7 dias 🔥</div>
+      <div style="font-size:2.4rem;font-weight:900;color:var(--black);">4,39x</div>
+      <div style="font-size:0.65rem;color:rgba(0,0,0,0.5);margin-top:4px;">ROAS combinado</div>
+    </div>
+    <div style="margin-left:20px;max-width:260px;">
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.6;font-weight:500;">
+        O ROAS continua subindo. As projeções abaixo usam o ROAS atual de <strong style="color:var(--yellow);">4,39x</strong> dos últimos 7 dias (25/02 – 03/03).
+      </p>
+    </div>
+  </div>
+
+  <p class="proj-intro">
+    Com o ROAS combinado dos últimos 7 dias de <strong>4,39x</strong>, cada real investido retorna R$ 4,39 em receita — e a tendência é de alta. Veja o que acontece ao escalar o investimento mensal:
+  </p>
+
+  <div class="proj-grid">
+
+    <div class="proj-card conservador">
+      <span class="proj-tag">Conservador</span>
+      <div class="proj-invest">Investimento: R$ 15.000/mês</div>
+      <div class="proj-receita">R$ 65.850</div>
+      <div class="proj-lbl">Receita estimada</div>
+      <div class="proj-lucro">Lucro: +R$ 50.850</div>
+    </div>
+
+    <div class="proj-card recomendado">
+      <span class="proj-tag">⭐ Recomendado</span>
+      <div class="proj-invest">Investimento: R$ 20.000/mês</div>
+      <div class="proj-receita">R$ 87.800</div>
+      <div class="proj-lbl">Receita estimada</div>
+      <div class="proj-lucro">Lucro: +R$ 67.800</div>
+    </div>
+
+    <div class="proj-card agressivo">
+      <span class="proj-tag">Agressivo</span>
+      <div class="proj-invest">Investimento: R$ 30.000/mês</div>
+      <div class="proj-receita">R$ 131.700</div>
+      <div class="proj-lbl">Receita estimada</div>
+      <div class="proj-lucro">Lucro: +R$ 101.700</div>
+    </div>
+
+  </div>
+
+  <p class="proj-note">* Projeções baseadas no ROAS combinado de 4,39x dos últimos 7 dias (25/02–03/03/2026 · Meta + Google). Resultados reais podem variar conforme sazonalidade e mudanças de mercado.</p>
+
+</div>
+
+<div class="section-divider yellow"></div>
+
+<!-- ══════════════════════════════════════════════════
+  CONCLUSÃO — Preto
+══════════════════════════════════════════════════ -->
+<div class="section-dark">
+
+  <div class="section-eyebrow">Conclusão executiva</div>
+  <h2 class="section-title">A estrutura funciona.<br>Hora de escalar.</h2>
+
+  <p class="conclusion-body">
+    Em Fevereiro, Meta e Google juntos geraram <strong>R$ 33.105 em receita</strong> com R$ 10.981 investidos.
+    Foram <strong>37 compras geradas</strong>, com custo por aquisição <strong>27% menor</strong> que Janeiro.
+    A estrutura está calibrada — o próximo passo é aumentar o investimento com segurança.
+  </p>
+
+  <div class="cta-box">
+    <div class="cta-title">📊 Resumo Executivo — Fevereiro 2026</div>
+    <div class="cta-stats">
+      <div class="cta-stat">
+        <span class="cs-val">3,01x</span>
+        <span class="cs-lbl">ROAS combinado</span>
+      </div>
+      <div class="cta-stat">
+        <span class="cs-val">R$ 33.105</span>
+        <span class="cs-lbl">Receita total</span>
+      </div>
+      <div class="cta-stat">
+        <span class="cs-val">37</span>
+        <span class="cs-lbl">Compras geradas</span>
+      </div>
+      <div class="cta-stat">
+        <span class="cs-val">R$ 297</span>
+        <span class="cs-lbl">CPA por compra</span>
+      </div>
+      <div class="cta-stat">
+        <span class="cs-val">+81,1%</span>
+        <span class="cs-lbl">Receita vs Janeiro</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Meta Ads: Conta act_1726104741370160 · Google Ads: Primebras Segurança · Período: 01/01/2026 a 28/02/2026<br>
+  Relatório gerado em março 2026 · <strong>Moca Lab</strong> — Laboratório de Marketing para <strong>Primebras</strong>
+</div>
+
+</body>
+</html>
