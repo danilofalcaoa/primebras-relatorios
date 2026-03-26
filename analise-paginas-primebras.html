@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Análise de Páginas de Produto — Primebras</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --yellow:    #E4FE52;
+  --orange:    #F3673E;
+  --beige:     #F9EDE3;
+  --black:     #111111;
+  --dark-card: #222222;
+  --white:     #FFFFFF;
+  --gray-text: #444444;
+  --gray-mid:  #777777;
+}
+
+body {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--black);
+}
+
+/* ── DIVIDERS ── */
+.divider-orange { height: 6px; background: linear-gradient(to right, #FFB2B5, #F3673E, #E4FE52); }
+.divider-yellow { height: 6px; background: linear-gradient(to right, #E4FE52, #F3673E, #FFB2B5); }
+
+/* ── SEÇÕES ── */
+.section-orange { background: var(--orange); padding: 80px 8%; }
+.section-beige  { background: var(--beige);  padding: 80px 8%; }
+.section-dark   { background: var(--black);  padding: 80px 8%; }
+
+/* ── EYEBROW ── */
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-orange .eyebrow { color: rgba(255,255,255,0.75); }
+.section-beige  .eyebrow { color: var(--orange); }
+.section-dark   .eyebrow { color: var(--yellow); }
+
+/* ── TÍTULOS ── */
+.section-title {
+  font-weight: 900;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.section-orange .section-title { color: var(--white); }
+.section-beige  .section-title { color: var(--orange); }
+.section-dark   .section-title { color: var(--yellow); }
+
+.section-sub {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.65;
+  max-width: 720px;
+}
+.section-orange .section-sub { color: rgba(255,255,255,0.85); }
+.section-beige  .section-sub { color: var(--gray-text); }
+.section-dark   .section-sub { color: rgba(255,255,255,0.7); }
+
+/* ── HERO ── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 48px;
+}
+.hero-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+}
+.hero-big {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.0;
+  margin-bottom: 20px;
+}
+.hero-big span { color: var(--yellow); }
+.hero-desc {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+}
+.hero-meta {
+  background: rgba(0,0,0,0.15);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+.hero-meta-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta-val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* ── 7 PERGUNTAS ── */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+.question-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 24px;
+  border-top: 4px solid var(--orange);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.question-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.question-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-text);
+  line-height: 1.5;
+  padding-top: 4px;
+}
+.question-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-top: 6px;
+  display: block;
+}
+
+/* ── FRAMEWORK CARDS (seção dark) ── */
+.framework-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+.fw-card {
+  background: var(--dark-card);
+  border-radius: 16px;
+  padding: 28px;
+  border-left: 4px solid var(--yellow);
+}
+.fw-card-num {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+.fw-card-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.fw-card-pergunta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 14px;
+  font-style: italic;
+}
+.fw-card-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.fw-card-list li {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+}
+.fw-card-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--yellow);
+  font-weight: 900;
+}
+
+/* ── INSIGHT BOX (dark) ── */
+.insight-box {
+  background: rgba(228,254,82,0.07);
+  border: 1px solid rgba(228,254,82,0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+}
+.insight-box strong { color: var(--yellow); font-weight: 700; }
+
+/* ── INSIGHT BOX (beige) ── */
+.insight-box-beige {
+  background: rgba(243,103,62,0.07);
+  border: 1px solid rgba(243,103,62,0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-text);
+  line-height: 1.6;
+}
+.insight-box-beige strong { color: var(--orange); font-weight: 700; }
+
+/* ── TABELA DE BENEFÍCIOS DIMENSIONAIS ── */
+.dim-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.dim-table th {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  text-align: left;
+}
+.dim-table td {
+  padding: 14px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-text);
+  border-bottom: 1px solid rgba(243,103,62,0.1);
+  background: var(--white);
+}
+.dim-table tr:last-child td { border-bottom: none; }
+.dim-table td:first-child { font-weight: 800; color: var(--orange); }
+
+/* ── ANÁLISE DAS PÁGINAS ── */
+.analysis-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+.analysis-section {
+  margin-bottom: 32px;
+}
+.analysis-section-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--orange);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.analysis-section-title .num {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 900;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.analysis-body {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gray-text);
+  line-height: 1.7;
+}
+.analysis-body p { margin-bottom: 12px; }
+.analysis-body p:last-child { margin-bottom: 0; }
+.analysis-body strong { color: var(--orange); font-weight: 700; }
+
+.status-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+.status-absent   { background: rgba(239,68,68,0.15);  color: #ef4444; }
+.status-partial  { background: rgba(245,158,11,0.15); color: #d97706; }
+.status-ok       { background: rgba(34,197,94,0.15);  color: #16a34a; }
+.status-critical { background: rgba(239,68,68,0.2);   color: #dc2626; font-size: 0.7rem; }
+
+/* ── ANÁLISE DAS PÁGINAS (dark) ── */
+.analysis-dark {
+  background: var(--dark-card);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--yellow);
+}
+.analysis-dark-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--yellow);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.analysis-dark .analysis-body {
+  color: rgba(255,255,255,0.75);
+}
+.analysis-dark .analysis-body strong { color: var(--yellow); }
+
+/* ── LISTA DE CONSTRUÇÃO (dark) ── */
+.build-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+.build-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+.build-list li .build-num {
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 0.65rem;
+  font-weight: 900;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── TABELA DE STATUS ── */
+.status-table-wrap {
+  overflow-x: auto;
+  margin-top: 40px;
+}
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.status-table th {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  text-align: left;
+}
+.status-table th:first-child { border-radius: 0; }
+.status-table td {
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--gray-text);
+  background: var(--white);
+  border-bottom: 1px solid rgba(243,103,62,0.1);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.status-table tr:last-child td { border-bottom: none; }
+.status-table td:first-child { font-weight: 800; color: var(--orange); }
+.status-table td:nth-child(3),
+.status-table td:nth-child(4),
+.status-table td:nth-child(5) { text-align: center; font-size: 1rem; }
+
+/* ── OK BOX ── */
+.ok-box {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+.ok-box-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #16a34a;
+  margin-bottom: 10px;
+}
+.ok-box p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-text);
+  line-height: 1.65;
+}
+
+/* ── CONCLUSÃO ── */
+.conclusion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+.conclusion-card {
+  background: var(--dark-card);
+  border-radius: 16px;
+  padding: 28px;
+  border-top: 4px solid var(--yellow);
+}
+.conclusion-card-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 12px;
+}
+.conclusion-card-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.65;
+}
+.conclusion-card-text strong { color: var(--yellow); font-weight: 700; }
+
+/* ── DIVIDER INTERNO ── */
+.inner-divider {
+  height: 1px;
+  background: rgba(243,103,62,0.2);
+  margin: 36px 0;
+}
+.inner-divider-dark {
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+  margin: 36px 0;
+}
+
+/* ── FEATURE COMPARE TABLE ── */
+.feature-before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.fab-header {
+  padding: 12px 20px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.fab-header-left  { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+.fab-header-right { background: rgba(228,254,82,0.1);  color: var(--yellow); }
+.fab-cell {
+  padding: 14px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.fab-cell-left  { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5); }
+.fab-cell-right { background: rgba(228,254,82,0.05); color: rgba(255,255,255,0.85); font-weight: 600; }
+
+/* ── FOOTER ── */
+.footer {
+  background: #0a0a0a;
+  padding: 40px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--white);
+}
+.footer-logo span { color: var(--yellow); }
+.footer-info {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  text-align: right;
+}
+
+/* ── RESPONSIVO ── */
+@media (max-width: 900px) {
+  .hero-grid          { grid-template-columns: 1fr; }
+  .framework-grid     { grid-template-columns: 1fr; }
+  .conclusion-grid    { grid-template-columns: 1fr; }
+  .feature-before-after { grid-template-columns: 1fr; }
+  .fab-header-right, .fab-cell-right { display: none; }
+}
+@media (max-width: 768px) {
+  .section-orange,
+  .section-beige,
+  .section-dark { padding: 60px 6%; }
+  .footer { padding: 40px 6%; }
+  .questions-grid { grid-template-columns: 1fr; }
+  .footer-info { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="section-orange">
+  <div class="eyebrow">🍃 Moca Lab · Análise Estratégica</div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-label">Documento de Recomendação</div>
+      <h1 class="hero-big">Páginas de produto que <span>vendem de verdade</span></h1>
+      <p class="hero-desc">
+        Como estruturar uma página de produto para converter visitantes em compradores, e o que precisa mudar nas páginas da Primebras para isso acontecer.
+      </p>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Preparado por</span>
+        <span class="hero-meta-val">Moca Lab</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Data</span>
+        <span class="hero-meta-val">25 de março de 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Páginas analisadas</span>
+        <span class="hero-meta-val">Frankfurt P7001 · Zurich P7002 · Rio P6002</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Objetivo</span>
+        <span class="hero-meta-val">Aumentar a taxa de conversão do e-commerce</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ AS 7 PERGUNTAS ═══════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">🍃 Parte 1</div>
+  <h2 class="section-title">Como o comprador pensa antes de clicar em "Comprar"</h2>
+  <p class="section-sub">
+    Quando um visitante chega em uma página de produto, ele passa por um processo mental inconsciente antes de decidir comprar. Ele não lê a página de cima para baixo como um texto. Ele varre a tela buscando respostas para perguntas específicas, e se não encontra essas respostas na ordem certa, ele sai.
+    <br><br>
+    Uma página de produto de alta conversão é construída para responder essas perguntas na sequência exata em que elas surgem na mente do comprador. São 7 perguntas, e cada seção da página existe para responder uma delas.
+  </p>
+
+  <div class="questions-grid">
+    <div class="question-card">
+      <div class="question-num">1</div>
+      <div>
+        <div class="question-text">Qual é a promessa dessa página?</div>
+        <span class="question-tag">Hero</span>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-num">2</div>
+      <div>
+        <div class="question-text">O que é isso exatamente?</div>
+        <span class="question-tag">Apresentação do produto</span>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-num">3</div>
+      <div>
+        <div class="question-text">Por que eu deveria me importar?</div>
+        <span class="question-tag">Benefícios de transformação</span>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-num">4</div>
+      <div>
+        <div class="question-text">Quem, parecido comigo, já usou e aprovou?</div>
+        <span class="question-tag">Prova social</span>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-num">5</div>
+      <div>
+        <div class="question-text">Como funciona de verdade?</div>
+        <span class="question-tag">Demonstração</span>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-num">6</div>
+      <div>
+        <div class="question-text">Por que eu deveria confiar nessa marca?</div>
+        <span class="question-tag">Autoridade e Garantia</span>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-num">7</div>
+      <div>
+        <div class="question-text">O que você quer que eu faça agora?</div>
+        <span class="question-tag">CTA e FAQ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-orange"></div>
+
+<!-- ═══════════════════════════ FRAMEWORK DETALHADO ═══════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Estrutura Detalhada</div>
+  <h2 class="section-title">O que cada seção precisa ter e por que ela converte</h2>
+  <p class="section-sub">
+    A seguir, cada uma das 7 seções explicada em profundidade: o que deve conter e qual é o impacto direto na taxa de conversão quando ela está presente ou ausente.
+  </p>
+
+  <div class="framework-grid">
+
+    <!-- SEÇÃO 1 -->
+    <div class="fw-card">
+      <div class="fw-card-num">Seção 01</div>
+      <div class="fw-card-title">Hero: A Promessa</div>
+      <div class="fw-card-pergunta">"Qual é a promessa dessa página?"</div>
+      <ul class="fw-card-list">
+        <li>Foto do produto em destaque, clara e em múltiplos ângulos</li>
+        <li>Título com proposta de valor, não apenas o nome do modelo</li>
+        <li>Preço e parcelamento visíveis — transparência gera confiança</li>
+        <li>Botão de compra de fácil acesso</li>
+        <li>Estrelas de avaliação, badge de garantia e selos de pagamento seguro</li>
+      </ul>
+      <div class="insight-box">
+        <strong>Por que converte:</strong> O visitante decide em menos de 3 segundos se vai continuar ou fechar a aba. O hero precisa confirmar que ele chegou no lugar certo. Se não encontra clareza imediata, sai e não volta.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2 -->
+    <div class="fw-card">
+      <div class="fw-card-num">Seção 02</div>
+      <div class="fw-card-title">O Produto como Solução</div>
+      <div class="fw-card-pergunta">"O que é isso exatamente?"</div>
+      <ul class="fw-card-list">
+        <li>Nome e linha do produto em destaque visual</li>
+        <li>Diferenciais em formato de ícone com descrição de benefício em uma linha</li>
+        <li>Foto ou vídeo do produto em uso real: instalado, no ambiente, com pessoa interagindo</li>
+      </ul>
+      <div class="insight-box">
+        <strong>Por que converte:</strong> Especificação técnica isolada não gera desejo. O visitante precisa conectar o produto com uma situação da vida dele. Ver o produto em uso real cria identificação e concretiza o que antes era abstrato.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3 -->
+    <div class="fw-card">
+      <div class="fw-card-num">Seção 03</div>
+      <div class="fw-card-title">Benefícios de Transformação</div>
+      <div class="fw-card-pergunta">"Por que eu deveria me importar?"</div>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);margin-bottom:14px;line-height:1.6;">
+        Essa é a seção onde a maioria das páginas perde conversão ao listar características técnicas em vez de benefícios. A diferença é simples:
+      </p>
+      <ul class="fw-card-list">
+        <li><strong style="color:rgba(255,255,255,0.5)">Característica:</strong> "Reconhecimento facial"</li>
+        <li><strong style="color:var(--yellow)">Benefício:</strong> "Abra a porta sem tirar as mãos das sacolas"</li>
+      </ul>
+      <div class="insight-box">
+        <strong>Por que converte:</strong> As pessoas não compram produtos. Compram a versão melhorada da vida que o produto proporciona. Quando o benefício está explícito, o cérebro do comprador conecta o produto à solução do problema dele. Quando só há especificação técnica, esse trabalho fica para o visitante fazer sozinho, e a maioria não faz.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 4 -->
+    <div class="fw-card">
+      <div class="fw-card-num">Seção 04</div>
+      <div class="fw-card-title">Prova Social</div>
+      <div class="fw-card-pergunta">"Quem, parecido comigo, já usou e aprovou?"</div>
+      <ul class="fw-card-list">
+        <li>Avaliações com nome, cidade e texto real</li>
+        <li>Fotos do cliente com o produto instalado, quando disponível</li>
+        <li>Nota média em estrelas visível de forma destacada</li>
+        <li>Volume de avaliações — "mais de 200 avaliações" transmite escala e confiança</li>
+      </ul>
+      <div class="insight-box">
+        <strong>Por que converte:</strong> O comportamento humano de compra é fortemente influenciado pelo que outras pessoas fizeram. Quanto mais alto o ticket do produto, maior a necessidade de prova social antes da decisão. Avaliações visíveis são o fator mais influente na decisão de compra online, acima do preço e do design da página.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 5 -->
+    <div class="fw-card">
+      <div class="fw-card-num">Seção 05</div>
+      <div class="fw-card-title">Demonstração de Uso</div>
+      <div class="fw-card-pergunta">"Como funciona de verdade?"</div>
+      <ul class="fw-card-list">
+        <li>Como usar: passo a passo simplificado e visual</li>
+        <li>Do que é feito: materiais, tecnologia, diferenciais de fabricação</li>
+        <li>Como a vida muda depois de usar: o antes e o depois do cotidiano</li>
+        <li>Para produtos com app: mostrar a tela, as funcionalidades, o histórico de uso</li>
+      </ul>
+      <div class="insight-box">
+        <strong>Por que converte:</strong> O medo do desconhecido é um freio real na compra. Quando o visitante entende exatamente como vai ser a experiência de uso, a resistência cai. Ele passa de "parece complicado" para "consigo fazer isso". Isso é especialmente crítico para produtos que exigem instalação ou aprendizado de uso.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 6 -->
+    <div class="fw-card">
+      <div class="fw-card-num">Seção 06</div>
+      <div class="fw-card-title">Autoridade e Garantia</div>
+      <div class="fw-card-pergunta">"Por que eu deveria confiar nessa marca?"</div>
+      <ul class="fw-card-list">
+        <li>Garantia com prazo e cobertura explícita: não apenas um badge, mas o que está incluso</li>
+        <li>Autoridade da marca: tempo de mercado, volume de clientes, certificações</li>
+        <li>Especialistas ou profissionais referendando o produto</li>
+        <li>Menções em veículos de comunicação ou parceiros reconhecidos</li>
+      </ul>
+      <div class="insight-box">
+        <strong>Por que converte:</strong> A garantia transforma uma decisão irreversível em reversível. Quando o visitante sabe que pode devolver ou acionar suporte, o risco percebido cai e a barreira de compra cai junto. A maioria dos e-commerces com boa taxa de conversão em produtos de alto ticket usa essas três camadas de confiança de forma visível e clara.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SEÇÃO 7 ocupa linha inteira -->
+  <div class="fw-card" style="margin-top:20px;border-left-color:var(--yellow);">
+    <div class="fw-card-num">Seção 07</div>
+    <div class="fw-card-title">CTA Final e FAQ</div>
+    <div class="fw-card-pergunta">"O que você quer que eu faça agora?"</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <ul class="fw-card-list">
+          <li>Botão de compra em destaque após cada seção persuasiva</li>
+          <li>FAQ com as objeções mais comuns respondidas de forma clara</li>
+          <li>Reforço da garantia próximo ao botão final</li>
+          <li>Comparativo entre modelos da linha para ajudar quem ainda está em dúvida</li>
+        </ul>
+      </div>
+      <div class="insight-box" style="margin-top:0;">
+        <strong>Por que converte:</strong> A maioria das páginas coloca o botão de compra apenas no topo. Quando o visitante leu a página inteira e decidiu comprar, ele precisa rolar de volta para encontrar o botão, e esse atrito tem impacto real. O FAQ elimina as objeções que não chegam a virar pergunta. O visitante simplesmente sai quando não encontra a resposta que precisa.
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELA ANTES/DEPOIS DE FEATURES -->
+  <div style="margin-top:48px;">
+    <div class="eyebrow" style="margin-bottom:16px;">Exemplo prático</div>
+    <h3 style="font-size:1.2rem;font-weight:900;color:var(--white);margin-bottom:8px;">Feature versus Benefício: a diferença que define a venda</h3>
+    <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:4px;">Como cada característica técnica pode ser reescrita como um benefício real para o comprador.</p>
+    <div class="feature-before-after">
+      <div class="fab-header fab-header-left">Como está hoje (feature)</div>
+      <div class="fab-header fab-header-right">Como deveria estar (benefício)</div>
+      <div class="fab-cell fab-cell-left">Reconhecimento Facial</div>
+      <div class="fab-cell fab-cell-right">Abra a porta sem tirar as mãos das sacolas</div>
+      <div class="fab-cell fab-cell-left">Vídeo Chamada</div>
+      <div class="fab-cell fab-cell-right">Veja quem está na porta antes de abrir, de qualquer lugar</div>
+      <div class="fab-cell fab-cell-left">Biometria</div>
+      <div class="fab-cell fab-cell-right">Nunca mais perca a chave de casa</div>
+      <div class="fab-cell fab-cell-left">Sistema Antifurto</div>
+      <div class="fab-cell fab-cell-right">Alarme que dispara se alguém tentar forçar a porta</div>
+      <div class="fab-cell fab-cell-left">Wi-Fi + Aplicativo</div>
+      <div class="fab-cell fab-cell-right">Abra a porta para alguém de qualquer lugar do mundo</div>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider-yellow"></div>
+
+<!-- ═══════════════════════════ ANÁLISE FRANKFURT + ZURICH ═══════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">🍃 Parte 2</div>
+  <h2 class="section-title">Análise das páginas da Primebras</h2>
+  <p class="section-sub">
+    Com a estrutura de referência clara, a seguir está o diagnóstico das três páginas de produto, seção por seção, identificando o que existe, o que falta e por que cada ponto impacta diretamente a conversão.
+  </p>
+
+  <div class="inner-divider"></div>
+
+  <div class="page-badge">Frankfurt P7001 e Zurich P7002</div>
+
+  <div class="ok-box">
+    <div class="ok-box-title">O que está bem e deve ser mantido</div>
+    <p>O design visual é premium. O fundo escuro com iluminação dramática do produto posiciona a Primebras como marca de alto valor, e isso é um ativo real. O nome do modelo em tipografia grande cria identidade de linha. O preço e o parcelamento estão claros no hero. Tudo isso deve ser mantido nas melhorias.</p>
+  </div>
+
+  <!-- SEÇÃO 1 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">1</span> Hero
+      <span class="status-tag status-partial">Parcial</span>
+    </div>
+    <div class="analysis-body">
+      <p>O hero tem o básico: foto, nome, preço e botão de compra. O que falta:</p>
+      <p><strong>Avaliações e estrelas:</strong> A nota do produto não aparece logo no início. O visitante não sabe se alguém comprou e aprovou antes de começar a ler a página.</p>
+      <p><strong>Badge de garantia em destaque:</strong> O Zurich tem um badge de "2 anos de garantia", mas ele é pequeno e fica posicionado dentro da galeria de imagens, sem destaque. No Frankfurt ele não aparece no hero.</p>
+      <p><strong>Selos de compra segura:</strong> Os selos de pagamento só aparecem no rodapé. Eles precisam estar próximos ao botão de compra, onde a decisão acontece.</p>
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SEÇÃO 2 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">2</span> Apresentação do produto
+      <span class="status-tag status-partial">Sem benefícios</span>
+    </div>
+    <div class="analysis-body">
+      <p>A seção com o nome do produto em tipografia grande é visualmente impactante. O problema está nos ícones de features logo abaixo.</p>
+      <p>Os ícones mostram "Reconhecimento Facial", "Vídeo Chamada", "Sistema Antifurto", "Biometria", "Wi-Fi", "Quatro Travas" — mas <strong>sem nenhuma descrição do que cada um significa na prática para quem vai comprar.</strong> O visitante vê o ícone e o nome, mas não entende o impacto. É especificação de catálogo, não apresentação de produto. A descrição de cada feature em uma linha já transforma essa seção de decorativa em persuasiva.</p>
+      <p>Outro ponto: todas as fotos mostram o produto em fundo escuro com iluminação artística. São fotos bonitas, mas <strong>nenhuma mostra a fechadura instalada em uma porta de verdade.</strong> O visitante não consegue visualizar como o produto vai ficar na casa dele, e essa falta de identificação é um freio real na decisão de compra.</p>
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SEÇÃO 3 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">3</span> Benefícios
+      <span class="status-tag status-absent">Ausente</span>
+    </div>
+    <div class="analysis-body">
+      <p>Essa seção está praticamente ausente. A descrição do Frankfurt diz: <em>"desenvolvida para atender projetos que exigem alto nível de segurança, inovação e integração. Compatível com portas de madeira, oferece múltiplas formas de acesso."</em></p>
+      <p>Isso é texto de catálogo, não de venda. Não responde à pergunta que o visitante está fazendo: <em>"o que muda na minha vida quando eu tiver essa fechadura?"</em></p>
+      <p>O que precisa existir nessa seção é uma narrativa de transformação em três dimensões: <strong>funcional</strong> (o que o produto faz), <strong>emocional</strong> (como ele faz o comprador se sentir) e <strong>prático</strong> (como ele muda o dia a dia). Para uma fechadura digital premium, isso significa mostrar a vida antes, com chave perdida, preocupação na viagem, dificuldade de deixar alguém entrar remotamente, e a vida depois, com abertura por digital, acesso pelo celular de qualquer lugar, câmera integrada mostrando quem está na porta.</p>
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SEÇÃO 4 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">4</span> Prova social
+      <span class="status-tag status-absent">Completamente ausente</span>
+    </div>
+    <div class="analysis-body">
+      <p>Não há uma única avaliação, um depoimento, uma foto de cliente ou uma menção a quantas fechaduras já foram vendidas em nenhuma das duas páginas.</p>
+      <p>Para um produto com ticket entre R$1.100 e R$1.550, <strong>essa é a ausência de maior impacto na conversão.</strong> O visitante que não encontra nenhuma prova de que outras pessoas compraram e ficaram satisfeitas vai procurar essa validação em outro lugar, no Google, no Mercado Livre, no Instagram, e muitas vezes não volta.</p>
+      <p>A maioria dos e-commerces de produtos de alto ticket que têm boa taxa de conversão constroem essa seção como uma das mais longas da página. Fotos reais de clientes com o produto instalado valem mais do que qualquer copy.</p>
+    </div>
+    <div class="insight-box-beige">
+      <strong>Oportunidade imediata:</strong> Avaliações do Google Meu Negócio da Primebras, do Mercado Livre e de comentários no Instagram podem ser migradas para a página hoje, sem nenhum custo adicional.
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SEÇÃO 5 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">5</span> Demonstração
+      <span class="status-tag status-absent">Ausente</span>
+    </div>
+    <div class="analysis-body">
+      <p>As páginas não têm demonstração de uso. O Frankfurt tem uma seção "Sobre a Fechadura" com três linhas de texto genérico. O Zurich tem a frase "A primeira com Palm Vein e reconhecimento facial do Brasil", que é uma afirmação forte, mas está solta e sem desenvolvimento.</p>
+      <p><strong>O aplicativo não aparece em lugar nenhum.</strong> Para um produto que se controla pelo celular, a tela do app é um dos diferenciais mais convincentes disponíveis. O visitante não sabe o que o app faz, como adicionar usuários, como ver o histórico, como abrir remotamente. Mostrar o app torna tangível o que seria invisível.</p>
+      <p>O reconhecimento facial do Frankfurt e o vídeo chamada do Zurich são os dois maiores diferenciais de cada produto respectivamente. Nenhum dos dois é demonstrado em ação em nenhuma das páginas.</p>
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SEÇÃO 6 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">6</span> Confiança e Garantia
+      <span class="status-tag status-partial">Insuficiente</span>
+    </div>
+    <div class="analysis-body">
+      <p>O que existe: o badge de garantia no Zurich, os selos de pagamento no rodapé e o logo "Google Safe Browsing" no rodapé.</p>
+      <p><strong>Não basta um badge.</strong> O visitante precisa saber exatamente o que a garantia de 2 anos cobre: peças, mão de obra, defeito eletrônico, dano acidental. Uma seção dedicada com essas respostas reduz o medo de comprar um produto tecnológico de alto valor online.</p>
+      <p>Não há nenhum especialista de segurança, instalador profissional ou arquiteto recomendando o produto. Se a Primebras tem anos de mercado ou já vendeu milhares de fechaduras no Brasil, esse número precisa aparecer de forma visível. É prova de solidez da marca.</p>
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SEÇÃO 7 -->
+  <div class="analysis-section">
+    <div class="analysis-section-title">
+      <span class="num">7</span> CTA e FAQ
+      <span class="status-tag status-absent">Só no topo</span>
+    </div>
+    <div class="analysis-body">
+      <p>O botão de compra existe apenas no hero. Se o visitante leu toda a página e decidiu comprar, ele precisa rolar até o topo para encontrar o botão. Esse atrito, pequeno que seja, tem impacto real na taxa de conversão.</p>
+      <p>Não há FAQ em nenhuma das páginas. As dúvidas mais comuns sobre fechaduras digitais, como compatibilidade com o tipo de porta, duração da bateria, funcionamento sem internet e número de usuários, ficam sem resposta. O visitante que não encontra a resposta que precisa simplesmente sai.</p>
+      <p>Não há comparativo entre os modelos. Um visitante que chegou ao Frankfurt mas ainda está em dúvida sobre qual modelo comprar não tem nenhuma ferramenta para decidir dentro da página. O caminho mais provável é sair para pesquisar fora, e muitas vezes ele compra na concorrência.</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider-orange"></div>
+
+<!-- ═══════════════════════════ ANÁLISE RIO ═══════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Caso Crítico</div>
+  <h2 class="section-title">Rio P6002: a página que quase não existe</h2>
+  <p class="section-sub">
+    O Rio P6002 merece análise separada. Está em uma situação mais crítica do que Frankfurt e Zurich, e é a página que mais precisa de ação imediata.
+  </p>
+
+  <div style="margin-top:36px;">
+    <div class="analysis-dark">
+      <div class="analysis-dark-title">
+        <span class="status-tag status-critical">Crítico</span>
+        A página praticamente não existe depois do hero
+      </div>
+      <div class="analysis-body">
+        <p>Depois do formulário de compra, há uma única imagem do produto em fundo escuro com a palavra "Biometria" à esquerda, sem título, sem descrição, sem benefício. Em seguida, o rodapé.</p>
+        <p>Isso significa que um visitante que chegou à página do Rio P6002 com um ticket de <strong>R$750</strong> encontra basicamente três coisas: o nome e o preço do produto, uma foto de produto, e o rodapé.</p>
+        <p>A página não responde nenhuma das perguntas que o comprador faz antes de decidir. Ela apenas anuncia o produto e espera que o visitante compre por impulso.</p>
+      </div>
+    </div>
+
+    <div class="analysis-dark">
+      <div class="analysis-dark-title">O que precisa ser construído do zero para o Rio</div>
+      <ul class="build-list">
+        <li><span class="build-num">1</span> Seção de features com benefícios: mínimo 4 itens (biometria, Wi-Fi, app e design)</li>
+        <li><span class="build-num">2</span> Foto ou imagem do produto instalado em porta real</li>
+        <li><span class="build-num">3</span> Seção de benefícios traduzidos nas dimensões praticidade, segurança e sofisticação</li>
+        <li><span class="build-num">4</span> Seção de garantia com cobertura clara e prazo explícito</li>
+        <li><span class="build-num">5</span> FAQ básico com no mínimo 5 perguntas sobre instalação, bateria, compatibilidade e suporte</li>
+        <li><span class="build-num">6</span> Seção de avaliações de clientes</li>
+        <li><span class="build-num">7</span> CTA final com botão de compra em destaque</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider-yellow"></div>
+
+<!-- ═══════════════════════════ TABELA RESUMO ═══════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">🍃 Diagnóstico Visual</div>
+  <h2 class="section-title">Estrutura ideal comparada com o que existe hoje</h2>
+  <p class="section-sub">Visão consolidada de cada seção por página, mostrando o que está completo, parcial ou ausente.</p>
+
+  <div class="status-table-wrap">
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>Seção</th>
+          <th>O que precisa ter</th>
+          <th>Frankfurt</th>
+          <th>Zurich</th>
+          <th>Rio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. Hero</td>
+          <td>Foto, preço, estrelas, garantia visível e selos de pagamento</td>
+          <td>⚠️</td>
+          <td>⚠️</td>
+          <td>⚠️</td>
+        </tr>
+        <tr>
+          <td>2. Apresentação</td>
+          <td>Features com benefício em uma linha e foto em uso real</td>
+          <td>⚠️</td>
+          <td>⚠️</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>3. Benefícios</td>
+          <td>Benefícios funcionais, emocionais e práticos</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>4. Prova Social</td>
+          <td>Avaliações com fotos e nota média</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>5. Demonstração</td>
+          <td>App, como usar e como a vida muda</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>6. Confiança</td>
+          <td>Garantia detalhada, autoridade e especialistas</td>
+          <td>❌</td>
+          <td>⚠️</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>7. CTA e FAQ</td>
+          <td>Botão ao longo da página, FAQ e comparativo de modelos</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:20px;display:flex;gap:20px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;color:var(--gray-text);">
+      <span style="font-size:1.1rem;">✅</span> Completo
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;color:var(--gray-text);">
+      <span style="font-size:1.1rem;">⚠️</span> Parcial ou insuficiente
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;color:var(--gray-text);">
+      <span style="font-size:1.1rem;">❌</span> Ausente
+    </div>
+  </div>
+
+</section>
+
+<div class="divider-orange"></div>
+
+<!-- ═══════════════════════════ CONCLUSÃO ═══════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Conclusão</div>
+  <h2 class="section-title">O visual está certo. A estrutura precisa acompanhar.</h2>
+  <p class="section-sub">
+    As páginas de produto da Primebras têm uma identidade visual premium que posiciona muito bem a marca. O problema é que a identidade visual resolve a percepção de qualidade, mas não resolve a decisão de compra.
+    <br><br>
+    Uma página converte quando responde, em sequência, todas as perguntas que o comprador faz antes de clicar em "Comprar". As páginas atuais respondem bem as duas primeiras (o que é e quanto custa) e falham nas cinco seguintes, especialmente na prova social, nos benefícios e na confiança, que são exatamente as que pesam mais na decisão de compra de um produto de alto ticket.
+    <br><br>
+    A boa notícia é que o conteúdo necessário existe. A Primebras tem diferenciais reais, tecnologia genuinamente diferenciada e uma marca que já transmite premium visualmente. O que falta é estruturar essas informações da forma que o comprador precisa receber, e não da forma mais fácil de publicar.
+  </p>
+
+  <div class="conclusion-grid">
+    <div class="conclusion-card">
+      <div class="conclusion-card-label">Prioridade imediata</div>
+      <div class="conclusion-card-text">
+        <strong>Avaliações de clientes</strong> nas três páginas e <strong>reconstrução completa do Rio P6002.</strong> São as mudanças de maior impacto na conversão sem nenhuma alteração no tráfego ou investimento em anúncios.
+      </div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-card-label">Prioridade alta</div>
+      <div class="conclusion-card-text">
+        <strong>Traduzir features em benefícios,</strong> adicionar <strong>seção de garantia dedicada</strong> e criar um <strong>FAQ</strong> respondendo as principais objeções de quem compra fechadura digital pela primeira vez.
+      </div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-card-label">Prioridade média</div>
+      <div class="conclusion-card-text">
+        <strong>Demonstração do aplicativo,</strong> fotos do produto instalado em ambiente real e <strong>tabela comparativa entre os modelos</strong> para segurar o visitante indeciso dentro da página.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo"><span>MO</span>CA<span style="color:var(--yellow);font-size:0.9rem;margin-left:4px;">lab</span></div>
+  <div class="footer-info">
+    Análise de Páginas de Produto · Primebras<br>
+    Preparado em 25/03/2026 · mocalab.com.br
+  </div>
+</footer>
+
+</body>
+</html>
