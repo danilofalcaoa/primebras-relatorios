@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relatório de Performance — Março 2026 · Primebras B2C</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --yellow:    #E4FE52;
+  --orange:    #F3673E;
+  --beige:     #F9EDE3;
+  --blue:      #ADD9FF;
+  --pink:      #FFB2B5;
+  --black:     #111111;
+  --dark-card: #222222;
+  --white:     #FFFFFF;
+  --gray-text: #444444;
+  --gray-mid:  #777777;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--black);
+}
+
+/* ── DIVIDERS ── */
+.section-divider {
+  height: 6px;
+  background: linear-gradient(to right, #FFB2B5, #F3673E, #E4FE52);
+}
+.section-divider.yellow {
+  background: linear-gradient(to right, #E4FE52, #F3673E, #FFB2B5);
+}
+
+/* ── CAPA / LARANJA ── */
+.section-orange {
+  background: var(--orange);
+  padding: 80px 8%;
+}
+.section-orange .eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+.section-orange h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900;
+  color: var(--white); margin-bottom: 8px;
+}
+.section-orange .subtitle {
+  font-size: 1rem; font-weight: 500;
+  color: rgba(255,255,255,0.8); margin-bottom: 48px;
+}
+
+/* ── BEGE ── */
+.section-beige {
+  background: var(--beige);
+  padding: 80px 8%;
+}
+.section-beige .eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--orange);
+  margin-bottom: 16px;
+}
+.section-beige h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900;
+  color: var(--orange); margin-bottom: 8px;
+}
+.section-beige .subtitle {
+  font-size: 1rem; font-weight: 500;
+  color: var(--gray-text); margin-bottom: 48px;
+}
+
+/* ── PRETA ── */
+.section-dark {
+  background: var(--black);
+  padding: 80px 8%;
+}
+.section-dark .eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--yellow);
+  margin-bottom: 16px;
+}
+.section-dark h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900;
+  color: var(--yellow); margin-bottom: 8px;
+}
+.section-dark .subtitle {
+  font-size: 1rem; font-weight: 500;
+  color: rgba(255,255,255,0.6); margin-bottom: 48px;
+}
+
+/* ── LOGO MOCA LAB ── */
+.cover-logo {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 48px;
+}
+.cover-logo-text {
+  font-size: 1.6rem; font-weight: 900;
+  letter-spacing: -0.02em; color: var(--white);
+}
+.cover-logo-text span { color: var(--yellow); }
+.cover-logo-badge {
+  background: var(--yellow); color: var(--orange);
+  font-size: 0.75rem; font-weight: 900;
+  padding: 4px 10px; border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* ── COVER NUMBERS ── */
+.cover-meta {
+  font-size: 0.85rem; font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 40px; letter-spacing: 1px;
+}
+.cover-numbers {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 20px; margin-top: 40px;
+}
+.cover-num {
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px; padding: 24px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.cover-num-val {
+  font-size: 2rem; font-weight: 900;
+  color: var(--white); margin-bottom: 6px;
+  line-height: 1;
+}
+.cover-num-val .yellow { color: var(--yellow); }
+.cover-num-label {
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: rgba(255,255,255,0.6);
+}
+.cover-num-delta {
+  font-size: 0.72rem; font-weight: 800;
+  color: var(--yellow); margin-top: 8px;
+  display: inline-block;
+  background: rgba(228,254,82,0.15);
+  padding: 3px 10px; border-radius: 20px;
+}
+.cover-num-delta.down {
+  color: var(--pink);
+  background: rgba(255,178,181,0.15);
+}
+
+/* ── KPI GRID ── */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 32px;
+}
+.kpi-card {
+  background: var(--white);
+  border-radius: 16px; padding: 24px 20px;
+  border-top: 4px solid var(--orange);
+}
+.kpi-card.yellow { border-top-color: var(--yellow); }
+.kpi-card.blue   { border-top-color: var(--blue); }
+.kpi-card.pink   { border-top-color: var(--pink); }
+.kpi-label {
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gray-mid); margin-bottom: 10px;
+}
+.kpi-value {
+  font-size: 2rem; font-weight: 900;
+  color: var(--black); margin-bottom: 10px;
+  line-height: 1;
+}
+.kpi-badge {
+  display: inline-block;
+  background: var(--yellow); color: var(--black);
+  font-size: 0.68rem; font-weight: 800;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 8px;
+}
+.kpi-badge.down {
+  background: var(--pink); color: var(--black);
+}
+.kpi-badge.good-inv {
+  background: var(--yellow); color: var(--black);
+}
+.kpi-note {
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--gray-mid);
+}
+
+/* ── INSIGHT BOX (DARK) ── */
+.insight-box {
+  background: rgba(228,254,82,0.07);
+  border: 1px solid rgba(228,254,82,0.3);
+  border-radius: 16px; padding: 24px 28px;
+  margin-top: 32px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.insight-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.insight-text {
+  font-size: 0.95rem; font-weight: 500;
+  color: rgba(255,255,255,0.85); line-height: 1.65;
+}
+.insight-text strong { color: var(--yellow); font-weight: 800; }
+
+/* ── INSIGHT BOX (BEIGE) ── */
+.insight-box-beige {
+  background: rgba(243,103,62,0.07);
+  border: 1px solid rgba(243,103,62,0.2);
+  border-radius: 16px; padding: 24px 28px;
+  margin-top: 32px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.insight-box-beige .insight-text {
+  color: var(--gray-text);
+}
+.insight-box-beige .insight-text strong { color: var(--orange); }
+
+/* ── BARRAS ── */
+.bars-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.bar-item {
+  background: var(--dark-card);
+  border-radius: 16px; padding: 24px;
+}
+.bar-item-label {
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 18px;
+}
+.bar-row { margin-bottom: 12px; }
+.bar-header {
+  display: flex; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.bar-period {
+  font-size: 0.75rem; font-weight: 600;
+  color: rgba(255,255,255,0.5);
+}
+.bar-amount {
+  font-size: 0.78rem; font-weight: 800;
+  color: var(--white);
+}
+.bar-track {
+  height: 8px; background: rgba(255,255,255,0.08);
+  border-radius: 4px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 4px;
+  background: var(--yellow);
+}
+.bar-fill.ant { background: rgba(228,254,82,0.3); }
+.bar-delta {
+  font-size: 0.72rem; font-weight: 800;
+  color: var(--yellow); display: block;
+  margin-top: 10px;
+}
+.bar-delta.down { color: var(--pink); }
+
+/* ── FUNIL ── */
+.funnel-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 12px; margin-bottom: 32px;
+}
+.funnel-step {
+  background: var(--dark-card);
+  border-radius: 16px; padding: 20px 16px;
+  text-align: center;
+  border-top: 3px solid rgba(228,254,82,0.3);
+}
+.funnel-step.top { border-top-color: var(--yellow); }
+.funnel-step-label {
+  font-size: 0.6rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: rgba(255,255,255,0.35); margin-bottom: 10px;
+}
+.funnel-step-val {
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--white); line-height: 1;
+  margin-bottom: 6px;
+}
+.funnel-step-val.highlight { color: var(--yellow); }
+.funnel-step-sub {
+  font-size: 0.65rem; font-weight: 600;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── STAR CARDS ── */
+.stars-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 32px;
+}
+.star-card {
+  background: var(--white);
+  border-radius: 16px; padding: 28px 24px;
+  border-top: 4px solid var(--orange);
+}
+.star-platform {
+  display: inline-block;
+  background: rgba(243,103,62,0.12); color: var(--orange);
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 14px;
+}
+.star-name {
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--black); margin-bottom: 20px;
+  min-height: 40px; line-height: 1.4;
+}
+.star-kpi-label {
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gray-mid); margin-bottom: 6px;
+}
+.star-kpi-val {
+  font-size: 2.6rem; font-weight: 900;
+  color: var(--orange); line-height: 1;
+  margin-bottom: 10px;
+}
+.star-sub {
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--gray-mid);
+}
+.star-badge-best {
+  display: inline-block;
+  background: var(--yellow); color: var(--black);
+  font-size: 0.62rem; font-weight: 800;
+  padding: 3px 10px; border-radius: 20px;
+  margin-top: 10px; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── CTA BOX ── */
+.cta-box {
+  background: var(--yellow);
+  border-radius: 20px; padding: 36px 32px;
+  margin-bottom: 40px;
+}
+.cta-title {
+  font-size: 1.1rem; font-weight: 900;
+  color: var(--black); margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+.cta-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.cs-val {
+  display: block; font-size: 1.7rem; font-weight: 900;
+  color: var(--black); line-height: 1; margin-bottom: 4px;
+}
+.cs-lbl {
+  display: block; font-size: 0.62rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: rgba(0,0,0,0.5);
+}
+
+/* ── NEXT STEPS ── */
+.conclusion-body {
+  font-size: 0.95rem; font-weight: 500; line-height: 1.7;
+  color: rgba(255,255,255,0.8); max-width: 720px;
+  margin: 0 auto 40px;
+}
+.conclusion-body strong { color: var(--yellow); font-weight: 800; }
+
+.next-steps {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.next-step-card {
+  background: var(--dark-card);
+  border-radius: 16px; padding: 22px 20px;
+}
+.next-step-label {
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--yellow); margin-bottom: 10px;
+}
+.next-step-text {
+  font-size: 0.85rem; font-weight: 500; line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: #0a0a0a;
+  padding: 40px 8%; text-align: center;
+}
+.footer-logo {
+  font-size: 1.1rem; font-weight: 900;
+  color: rgba(255,255,255,0.25); margin-bottom: 10px;
+}
+.footer-logo span { color: var(--yellow); }
+.footer-text {
+  font-size: 0.72rem; font-weight: 500; line-height: 1.8;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .cover-numbers { grid-template-columns: repeat(2, 1fr); }
+  .kpi-grid      { grid-template-columns: 1fr 1fr; }
+  .bars-grid     { grid-template-columns: 1fr; }
+  .funnel-grid   { grid-template-columns: repeat(3, 1fr); }
+  .stars-grid    { grid-template-columns: 1fr; }
+  .cta-stats     { grid-template-columns: repeat(2, 1fr); }
+  .next-steps    { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     CAPA — LARANJA
+══════════════════════════════════════ -->
+<section class="section-orange">
+  <div class="cover-logo">
+    <span class="cover-logo-text"><span>MO</span>CA</span>
+    <span class="cover-logo-badge">lab</span>
+  </div>
+
+  <div class="eyebrow">Relatório de Performance · Meta Ads · B2C — E-commerce</div>
+  <h2>Primebras B2C — Março 2026</h2>
+  <div class="subtitle">Período: 01/03/2026 a 31/03/2026 &nbsp;·&nbsp; Comparativo: Fevereiro 2026</div>
+
+  <div class="cover-numbers">
+    <div class="cover-num">
+      <div class="cover-num-val">R$22.166</div>
+      <div class="cover-num-label">Investimento Total</div>
+      <div class="cover-num-delta">▲ +301,4% vs Fev</div>
+    </div>
+    <div class="cover-num">
+      <div class="cover-num-val"><span class="yellow">R$73.300</span></div>
+      <div class="cover-num-label">Receita Gerada</div>
+      <div class="cover-num-delta">▲ +273,3% vs Fev</div>
+    </div>
+    <div class="cover-num">
+      <div class="cover-num-val"><span class="yellow">3,31×</span></div>
+      <div class="cover-num-label">ROAS — Retorno sobre Investimento</div>
+      <div class="cover-num-delta down">▼ −7,0% vs Fev</div>
+    </div>
+    <div class="cover-num">
+      <div class="cover-num-val"><span class="yellow">74</span></div>
+      <div class="cover-num-label">Compras Realizadas</div>
+      <div class="cover-num-delta">▲ +270,0% vs Fev</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     RESUMO — BEGE
+══════════════════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">🛒 Resultado do Período</div>
+  <h2>Visão Geral de Março</h2>
+  <div class="subtitle">Todos os indicadores de performance com variação vs. Fevereiro</div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Investimento Total</div>
+      <div class="kpi-value">R$22.166</div>
+      <div class="kpi-badge">▲ +301,4% vs Fev</div>
+      <div class="kpi-note">Fevereiro: R$5.522</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Receita Gerada</div>
+      <div class="kpi-value">R$73.300</div>
+      <div class="kpi-badge">▲ +273,3% vs Fev</div>
+      <div class="kpi-note">Fevereiro: R$19.634</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">ROAS — Retorno por Real Investido</div>
+      <div class="kpi-value">3,31×</div>
+      <div class="kpi-badge down">▼ −7,0% vs Fev</div>
+      <div class="kpi-note">Fevereiro: 3,56× · Cada R$1 gerou R$3,31 em receita</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Compras Realizadas</div>
+      <div class="kpi-value">74</div>
+      <div class="kpi-badge">▲ +270,0% vs Fev</div>
+      <div class="kpi-note">Fevereiro: 20 compras</div>
+    </div>
+    <div class="kpi-card pink">
+      <div class="kpi-label">CPA — Custo por Compra</div>
+      <div class="kpi-value">R$299</div>
+      <div class="kpi-badge down">▲ +8,5% vs Fev</div>
+      <div class="kpi-note">Fevereiro: R$276 · Menor é melhor</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Alcance</div>
+      <div class="kpi-value">292k</div>
+      <div class="kpi-badge">▲ +67,3% vs Fev</div>
+      <div class="kpi-note">Fevereiro: 174.523 pessoas únicas</div>
+    </div>
+  </div>
+
+  <div class="insight-box-beige">
+    <div class="insight-icon">🚀</div>
+    <div class="insight-text">
+      Em março, a Primebras B2C escalou o investimento em <strong>4× (de R$5.522 para R$22.166)</strong>
+      e manteve o ROAS próximo a 3,3× — com <strong>74 compras e R$73.300 em receita</strong>,
+      contra apenas 20 compras e R$19.634 em fevereiro. A eficiência se sustentou em escala:
+      cada R$1 investido retornou <strong>R$3,31 em vendas</strong>.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════
+     EVOLUÇÃO — PRETO
+══════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Evolução Detalhada</div>
+  <h2>Março vs. Fevereiro — Comparativo</h2>
+  <div class="subtitle">Investimento, receita e compras mês a mês</div>
+
+  <div class="bars-grid">
+
+    <div class="bar-item">
+      <div class="bar-item-label">Investimento Total</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março 2026</span>
+          <span class="bar-amount">R$22.166</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:100%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro 2026</span>
+          <span class="bar-amount">R$5.522</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:25%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +301,4% de investimento</span>
+    </div>
+
+    <div class="bar-item">
+      <div class="bar-item-label">Receita Gerada</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março 2026</span>
+          <span class="bar-amount">R$73.300</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:100%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro 2026</span>
+          <span class="bar-amount">R$19.634</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:27%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +273,3% de receita</span>
+    </div>
+
+    <div class="bar-item">
+      <div class="bar-item-label">Compras Realizadas</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março 2026</span>
+          <span class="bar-amount">74 compras</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:100%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro 2026</span>
+          <span class="bar-amount">20 compras</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:27%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +270,0% de compras</span>
+    </div>
+
+    <div class="bar-item">
+      <div class="bar-item-label">Alcance — Pessoas Únicas Impactadas</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março 2026</span>
+          <span class="bar-amount">292.045 pessoas</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:100%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro 2026</span>
+          <span class="bar-amount">174.523 pessoas</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:60%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +67,3% de alcance</span>
+    </div>
+
+  </div>
+
+  <!-- Funil de Conversão -->
+  <div style="margin-top: 40px;">
+    <div class="eyebrow" style="margin-bottom: 24px;">Funil de Conversão — Março 2026</div>
+    <div class="funnel-grid">
+      <div class="funnel-step top">
+        <div class="funnel-step-label">Visualizações LP</div>
+        <div class="funnel-step-val highlight">19.471</div>
+        <div class="funnel-step-sub">vs 11.759 Fev</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-step-label">Add to Cart</div>
+        <div class="funnel-step-val">708</div>
+        <div class="funnel-step-sub">vs 389 Fev</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-step-label">Checkout</div>
+        <div class="funnel-step-val">673</div>
+        <div class="funnel-step-sub">vs 352 Fev</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-step-label">Compras</div>
+        <div class="funnel-step-val highlight">74</div>
+        <div class="funnel-step-sub">vs 20 Fev</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-step-label">Taxa LP→Compra</div>
+        <div class="funnel-step-val">0,38%</div>
+        <div class="funnel-step-sub">vs 0,17% Fev</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-icon">📊</div>
+    <div class="insight-text">
+      O funil de março mostra evolução em todas as etapas: o alcance cresceu <strong>+67%</strong>,
+      os Add to Cart subiram <strong>+82%</strong> e os checkouts <strong>+91%</strong>.
+      A taxa de conversão de visitante para compra saiu de 0,17% para <strong>0,38%</strong> —
+      indicando que a página de produto está convertendo melhor à medida que o volume aumenta.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider yellow"></div>
+
+<!-- ══════════════════════════════════════
+     CAMPANHAS DESTAQUE — BEGE
+══════════════════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">⭐ Campanhas Destaque</div>
+  <h2>Top 3 Campanhas de Março</h2>
+  <div class="subtitle">Melhores performances por ROAS — retorno sobre investimento por campanha</div>
+
+  <div class="stars-grid">
+
+    <div class="star-card">
+      <span class="star-platform">Meta Ads · Melhor ROAS</span>
+      <div class="star-name">Remarketing</div>
+      <div class="star-kpi-label">ROAS do Período</div>
+      <div class="star-kpi-val">5,60×</div>
+      <div class="star-sub">18 compras · Cada R$1 gerou R$5,60</div>
+      <div class="star-badge-best">⭐ Mais rentável</div>
+    </div>
+
+    <div class="star-card">
+      <span class="star-platform">Meta Ads · Maior Volume</span>
+      <div class="star-name">Compra Público Frio — Escala</div>
+      <div class="star-kpi-label">ROAS do Período</div>
+      <div class="star-kpi-val">4,11×</div>
+      <div class="star-sub">22 compras · Principal motor de escala</div>
+    </div>
+
+    <div class="star-card">
+      <span class="star-platform">Meta Ads · Mais Compras</span>
+      <div class="star-name">Compra Público Frio — Teste</div>
+      <div class="star-kpi-label">ROAS do Período</div>
+      <div class="star-kpi-val">3,29×</div>
+      <div class="star-sub">27 compras · Maior volume de conversões</div>
+    </div>
+
+  </div>
+
+  <div class="insight-box-beige">
+    <div class="insight-icon">🏆</div>
+    <div class="insight-text">
+      O Remarketing foi a campanha mais eficiente de março com <strong>ROAS de 5,60×</strong> —
+      para cada R$1 investido em reimpacto de visitantes, R$5,60 voltaram em vendas.
+      A campanha de Escala sustentou o maior volume unitário com <strong>ROAS saudável de 4,11×</strong>,
+      enquanto a campanha de Teste gerou o maior número absoluto de compras (27), com espaço para
+      otimização de criativo e lances para melhorar ainda mais a rentabilidade.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════
+     CONCLUSÃO — PRETO
+══════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Resumo Executivo</div>
+  <h2>Março 2026 em 30 Segundos</h2>
+  <div class="subtitle">O que aconteceu, o que vem por aí</div>
+
+  <div class="cta-box">
+    <div class="cta-title">Primebras B2C — Meta Ads · Março 2026</div>
+    <div class="cta-stats">
+      <div>
+        <span class="cs-val">R$22.166</span>
+        <span class="cs-lbl">Investido</span>
+      </div>
+      <div>
+        <span class="cs-val">R$73.300</span>
+        <span class="cs-lbl">Receita Gerada</span>
+      </div>
+      <div>
+        <span class="cs-val">3,31×</span>
+        <span class="cs-lbl">ROAS</span>
+      </div>
+      <div>
+        <span class="cs-val">74</span>
+        <span class="cs-lbl">Compras</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="conclusion-body">
+    Março foi o mês de escala da Primebras B2C no Meta Ads. Com investimento <strong>4× maior</strong>
+    do que fevereiro, a operação gerou <strong>R$73.300 em receita</strong> — 3,7× mais do que no mês anterior.
+    O ROAS se manteve sólido em <strong>3,31×</strong> (vs 3,56× em fev), demonstrando que o modelo
+    de crescimento é sustentável: aumentar o volume sem perder a rentabilidade. O Remarketing seguiu
+    como a campanha mais eficiente com <strong>5,60× de ROAS</strong>, reforçando que
+    reimpactar quem já visitou o site é o caminho de menor custo para conversão.
+  </p>
+
+  <div class="next-steps">
+    <div class="next-step-card">
+      <div class="next-step-label">O que está funcionando</div>
+      <div class="next-step-text">
+        Remarketing com ROAS 5,60×: reimpactar visitantes que não compraram
+        é o maior alavancador de eficiência da conta. Crescer o budget desta campanha
+        é a próxima prioridade.
+      </div>
+    </div>
+    <div class="next-step-card">
+      <div class="next-step-label">Oportunidade identificada</div>
+      <div class="next-step-text">
+        A taxa LP → Compra está em 0,38%. Com 19.471 visitantes chegando à página,
+        otimizar a PDP (Product Detail Page) — headline, prova social, CTA — pode
+        dobrar as compras sem aumentar o investimento.
+      </div>
+    </div>
+    <div class="next-step-card">
+      <div class="next-step-label">Próximo passo</div>
+      <div class="next-step-text">
+        Continuar o modelo de escala: manter a campanha de Teste como laboratório
+        de criativos, escalar o que comprovadamente funciona (Remarketing + Escala)
+        e monitorar o ROAS à medida que o budget sobe.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo"><span>MOCA</span>lab</div>
+  <div class="footer-text">
+    Primebras B2C · Meta Ads · Março 2026<br>
+    Período: 01/03/2026 a 31/03/2026 · Comparativo: 01/02/2026 a 28/02/2026<br>
+    Dados: Meta Ads API v22.0 · Gerado em: 07/04/2026
+  </div>
+</footer>
+
+</body>
+</html>
