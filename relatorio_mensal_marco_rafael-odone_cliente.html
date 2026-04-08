@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Relatório Mensal — Rafael Odone · Março 2026"/>
+<title>Relatório Mensal — Rafael Odone · Março 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --yellow:    #E4FE52;
+  --orange:    #F3673E;
+  --beige:     #F9EDE3;
+  --blue:      #ADD9FF;
+  --pink:      #FFB2B5;
+  --black:     #111111;
+  --dark-card: #222222;
+  --white:     #FFFFFF;
+  --gray-text: #444444;
+  --gray-mid:  #777777;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.6;
+}
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--yellow); z-index: 9999;
+  width: 0%; transition: width 0.1s;
+}
+
+/* ─── DIVIDERS ─── */
+.section-divider {
+  height: 6px;
+  background: linear-gradient(to right, #FFB2B5, #F3673E, #E4FE52);
+}
+.section-divider.yellow {
+  background: linear-gradient(to right, #E4FE52, #F3673E, #FFB2B5);
+}
+
+/* ─── SEÇÃO LARANJA ─── */
+.section-orange {
+  background: var(--orange);
+  padding: 80px 8%;
+}
+.section-orange .eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.75);
+  margin-bottom: 12px;
+}
+.section-orange h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 900; color: var(--white); margin-bottom: 8px;
+}
+.section-orange .section-sub {
+  color: rgba(255,255,255,0.8); font-size: 1rem; font-weight: 500;
+}
+
+/* ─── SEÇÃO BEGE ─── */
+.section-beige {
+  background: var(--beige);
+  padding: 80px 8%;
+}
+.section-beige .eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 12px;
+}
+.section-beige h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 900; color: var(--orange); margin-bottom: 8px;
+}
+.section-beige .section-sub {
+  color: var(--gray-text); font-size: 1rem; font-weight: 500; margin-bottom: 40px;
+}
+
+/* ─── SEÇÃO PRETA ─── */
+.section-dark {
+  background: var(--black);
+  padding: 80px 8%;
+}
+.section-dark .eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--yellow); margin-bottom: 12px;
+}
+.section-dark h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 900; color: var(--yellow); margin-bottom: 8px;
+}
+.section-dark .section-sub {
+  color: rgba(255,255,255,0.6); font-size: 1rem; font-weight: 500; margin-bottom: 40px;
+}
+
+/* ─── CAPA ─── */
+.cover {
+  background: var(--orange);
+  padding: 64px 8% 80px;
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.cover-logo {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 48px;
+}
+.cover-logo-text {
+  font-size: 1.6rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em;
+}
+.cover-logo-text span { color: var(--yellow); }
+.cover-logo-badge {
+  background: var(--yellow); color: var(--orange);
+  font-size: 0.65rem; font-weight: 900; padding: 4px 8px;
+  border-radius: 6px; letter-spacing: 1px; text-transform: lowercase;
+}
+.cover-eyebrow {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px;
+}
+.cover-title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900; color: var(--white); line-height: 1.05;
+  margin-bottom: 8px;
+}
+.cover-title span { color: var(--yellow); }
+.cover-period {
+  font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.8);
+  margin-bottom: 56px;
+}
+.cover-numbers {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+}
+.cover-num {
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px; padding: 24px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.cover-num-val {
+  font-size: 2rem; font-weight: 900; color: var(--yellow);
+  line-height: 1; margin-bottom: 6px;
+}
+.cover-num-lbl {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.7);
+}
+
+/* ─── KPI GRID ─── */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 32px;
+}
+.kpi-card {
+  background: var(--white);
+  border-radius: 16px; padding: 24px 20px;
+  border-top: 4px solid var(--orange);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.kpi-card.orange { border-top-color: var(--orange); }
+.kpi-card.yellow { border-top-color: #c8b800; }
+.kpi-card.blue   { border-top-color: var(--blue); }
+.kpi-card.pink   { border-top-color: var(--pink); }
+.kpi-label {
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gray-mid); margin-bottom: 10px;
+}
+.kpi-value {
+  font-size: 2rem; font-weight: 900; color: var(--black);
+  line-height: 1; margin-bottom: 10px;
+}
+.kpi-badge {
+  display: inline-block;
+  background: var(--yellow); color: var(--black);
+  font-size: 0.68rem; font-weight: 800; padding: 3px 10px;
+  border-radius: 20px; margin-bottom: 8px;
+}
+.kpi-badge.down {
+  background: var(--pink);
+}
+.kpi-note {
+  font-size: 0.72rem; font-weight: 500; color: var(--gray-mid);
+}
+
+/* KPI card dark variant */
+.kpi-card-dark {
+  background: var(--dark-card);
+  border-radius: 16px; padding: 24px 20px;
+  border-top: 4px solid var(--yellow);
+}
+.kpi-card-dark .kpi-label { color: rgba(255,255,255,0.45); }
+.kpi-card-dark .kpi-value { color: var(--white); }
+.kpi-card-dark .kpi-note  { color: rgba(255,255,255,0.35); }
+
+/* ─── INSIGHT BOX ─── */
+.insight-box {
+  background: rgba(228,254,82,0.07);
+  border: 1px solid rgba(228,254,82,0.3);
+  border-radius: 16px; padding: 24px 28px;
+  display: flex; gap: 16px; align-items: flex-start;
+  margin-top: 28px;
+}
+.insight-icon { font-size: 1.4rem; flex-shrink: 0; }
+.insight-text {
+  font-size: 0.95rem; font-weight: 500;
+  color: rgba(255,255,255,0.85); line-height: 1.65;
+}
+.insight-text strong { color: var(--yellow); font-weight: 800; }
+
+.insight-box-beige {
+  background: rgba(243,103,62,0.07);
+  border: 1px solid rgba(243,103,62,0.2);
+  border-radius: 16px; padding: 24px 28px;
+  display: flex; gap: 16px; align-items: flex-start;
+  margin-top: 28px;
+}
+.insight-box-beige .insight-text { color: var(--gray-text); }
+.insight-box-beige .insight-text strong { color: var(--orange); }
+
+/* ─── BARRAS COMPARATIVAS ─── */
+.bars-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  margin-bottom: 32px;
+}
+.bar-item { }
+.bar-label {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
+}
+.bar-row { margin-bottom: 12px; }
+.bar-header {
+  display: flex; justify-content: space-between; margin-bottom: 6px;
+}
+.bar-period {
+  font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.5);
+}
+.bar-amount {
+  font-size: 0.82rem; font-weight: 800; color: var(--white);
+}
+.bar-track {
+  height: 10px; background: rgba(255,255,255,0.08);
+  border-radius: 5px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 5px;
+}
+.bar-fill.ant { background: #CCCCCC; }
+.bar-fill.mar { background: var(--yellow); }
+.bar-delta {
+  display: inline-block; margin-top: 10px;
+  font-size: 0.75rem; font-weight: 800; color: var(--yellow);
+  letter-spacing: 0.5px;
+}
+.bar-delta.down { color: var(--pink); }
+
+/* ─── TABELA MQL POR CAMPANHA ─── */
+.mql-table {
+  width: 100%; border-collapse: collapse; margin-top: 8px;
+}
+.mql-table th {
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gray-mid);
+  padding: 10px 14px; text-align: left;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: rgba(243,103,62,0.04);
+}
+.mql-table td {
+  padding: 14px 14px; font-size: 0.88rem; font-weight: 600;
+  color: var(--gray-text); border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.mql-table tr:last-child td { border-bottom: none; }
+.mql-table tr:hover td { background: rgba(243,103,62,0.03); }
+.tag-camp {
+  display: inline-block; background: rgba(243,103,62,0.1); color: var(--orange);
+  font-size: 0.6rem; font-weight: 800; padding: 2px 8px;
+  border-radius: 20px; letter-spacing: 1px;
+}
+.pct-bar {
+  display: flex; align-items: center; gap: 8px;
+}
+.pct-track {
+  flex: 1; height: 6px; background: rgba(0,0,0,0.08);
+  border-radius: 3px; overflow: hidden;
+}
+.pct-fill { height: 100%; background: var(--orange); border-radius: 3px; }
+.pct-val { font-size: 0.82rem; font-weight: 800; color: var(--orange); min-width: 36px; }
+.mql-num { font-size: 1.1rem; font-weight: 900; color: var(--black); }
+
+/* ─── STAR CARDS ─── */
+.stars-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 8px;
+}
+.star-card {
+  background: var(--dark-card);
+  border-radius: 16px; padding: 28px 22px;
+  border-top: 3px solid var(--yellow);
+}
+.star-platform {
+  display: inline-block; font-size: 0.6rem; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  background: rgba(228,254,82,0.12); color: var(--yellow);
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 14px;
+}
+.star-name {
+  font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.75);
+  margin-bottom: 20px; min-height: 40px; line-height: 1.4;
+}
+.star-kpi-lbl {
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px;
+}
+.star-kpi-val {
+  font-size: 2.4rem; font-weight: 900; color: var(--yellow);
+  line-height: 1; margin-bottom: 10px;
+}
+.star-sub {
+  font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.45);
+}
+
+/* ─── CTA BOX ─── */
+.cta-box {
+  background: var(--yellow); border-radius: 20px;
+  padding: 36px 32px; margin-bottom: 40px;
+}
+.cta-title {
+  font-size: 1.3rem; font-weight: 900; color: var(--black);
+  margin-bottom: 28px; text-align: center;
+}
+.cta-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  text-align: center;
+}
+.cs-val {
+  display: block; font-size: 1.6rem; font-weight: 900; color: var(--black);
+}
+.cs-lbl {
+  display: block; font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(17,17,17,0.55); margin-top: 4px;
+}
+
+.conclusion-body {
+  font-size: 0.95rem; font-weight: 500; line-height: 1.75;
+  color: rgba(255,255,255,0.8); max-width: 680px; margin: 0 auto 36px;
+}
+.conclusion-body strong { color: var(--yellow); font-weight: 800; }
+
+.next-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.next-card {
+  background: var(--dark-card); border-radius: 16px; padding: 22px;
+}
+.next-card-lbl {
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--yellow); margin-bottom: 10px;
+}
+.next-card-text {
+  font-size: 0.85rem; font-weight: 500;
+  color: rgba(255,255,255,0.7); line-height: 1.6;
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  background: #0a0a0a; padding: 32px 8%;
+  text-align: center;
+}
+.footer-logo {
+  font-size: 1rem; font-weight: 900; color: rgba(255,255,255,0.25);
+  margin-bottom: 8px; letter-spacing: 1px;
+}
+.footer-logo span { color: var(--yellow); }
+.footer-text {
+  font-size: 0.72rem; font-weight: 500;
+  color: rgba(255,255,255,0.18); line-height: 1.7;
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 768px) {
+  .cover-numbers { grid-template-columns: repeat(2, 1fr); }
+  .kpi-grid      { grid-template-columns: 1fr 1fr; }
+  .bars-grid     { grid-template-columns: 1fr; }
+  .stars-grid    { grid-template-columns: 1fr; }
+  .cta-stats     { grid-template-columns: repeat(2, 1fr); }
+  .next-cards    { grid-template-columns: 1fr; }
+  .cover { padding: 48px 6% 64px; }
+  .section-orange, .section-beige, .section-dark { padding: 60px 6%; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ══════════════════════════════════════════════
+     CAPA
+══════════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-logo">
+    <span class="cover-logo-text"><span>MO</span>CA</span>
+    <span class="cover-logo-badge">lab</span>
+  </div>
+
+  <div>
+    <div class="cover-eyebrow">Relatório de Performance · Meta Ads</div>
+    <h1 class="cover-title">Rafael Odone<br><span>Março 2026</span></h1>
+    <p class="cover-period">Março 2026 · Comparativo com Fevereiro 2026</p>
+
+    <div class="cover-numbers">
+      <div class="cover-num">
+        <div class="cover-num-val">R$2.158</div>
+        <div class="cover-num-lbl">Investimento</div>
+      </div>
+      <div class="cover-num">
+        <div class="cover-num-val">135</div>
+        <div class="cover-num-lbl">Leads Gerados</div>
+      </div>
+      <div class="cover-num">
+        <div class="cover-num-val">55</div>
+        <div class="cover-num-lbl">Leads MQL (≥R$1M)</div>
+      </div>
+      <div class="cover-num">
+        <div class="cover-num-val">R$39</div>
+        <div class="cover-num-lbl">Custo por MQL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     RESUMO — KPI CARDS (bege)
+══════════════════════════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">🍃 Resumo do Período</div>
+  <h2>Os números de março</h2>
+  <p class="section-sub">Março vs Fevereiro 2026 · Meta Ads</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card orange">
+      <div class="kpi-label">Investimento Total</div>
+      <div class="kpi-value">R$2.158</div>
+      <span class="kpi-badge down">▲ +6,0% vs fev</span>
+      <div class="kpi-note">Fevereiro: R$2.035</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Leads Gerados</div>
+      <div class="kpi-value">135</div>
+      <span class="kpi-badge">▲ +0,7% vs fev</span>
+      <div class="kpi-note">Fevereiro: 134 leads</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Custo por Lead (CPL)</div>
+      <div class="kpi-value">R$15,99</div>
+      <span class="kpi-badge down">▼ +5,2% vs fev</span>
+      <div class="kpi-note">Fevereiro: R$15,19</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Leads MQL (≥R$1M)</div>
+      <div class="kpi-value">55</div>
+      <span class="kpi-badge">▲ +17,0% vs fev</span>
+      <div class="kpi-note">Fevereiro: 47 MQL</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Taxa de MQL</div>
+      <div class="kpi-value">44,4%</div>
+      <span class="kpi-badge">▲ +6,8pp vs fev</span>
+      <div class="kpi-note">Fevereiro: 37,6%</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Custo por MQL</div>
+      <div class="kpi-value">R$39,24</div>
+      <span class="kpi-badge">▼ -9,4% vs fev</span>
+      <div class="kpi-note">Fevereiro: R$43,31</div>
+    </div>
+  </div>
+
+  <div class="insight-box-beige">
+    <div class="insight-icon">🎯</div>
+    <div class="insight-text">
+      Março foi o melhor mês em <strong>qualidade de leads</strong>: mesmo com investimento e volume quase estáveis, os leads qualificados (acima de R$1M) cresceram <strong>17%</strong> e o custo por MQL caiu <strong>R$4</strong> — de R$43 para R$39. Cada real investido está chegando em clientes mais qualificados.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     EVOLUÇÃO COMPARATIVA (preto)
+══════════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Evolução Mensal</div>
+  <h2>Março vs Fevereiro</h2>
+  <p class="section-sub">Comparativo de volume e eficiência por campanha</p>
+
+  <div class="bars-grid">
+    <div class="bar-item">
+      <div class="bar-label">Investimento Total</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro</span>
+          <span class="bar-amount">R$2.035</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:94%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março</span>
+          <span class="bar-amount">R$2.158</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill mar" style="width:100%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +6,0%</span>
+    </div>
+
+    <div class="bar-item">
+      <div class="bar-label">Leads Gerados</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro</span>
+          <span class="bar-amount">134</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:99%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março</span>
+          <span class="bar-amount">135</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill mar" style="width:100%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +0,7%</span>
+    </div>
+
+    <div class="bar-item">
+      <div class="bar-label">Leads MQL (≥R$1M)</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro</span>
+          <span class="bar-amount">47</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:85%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março</span>
+          <span class="bar-amount">55</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill mar" style="width:100%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▲ +17,0%</span>
+    </div>
+
+    <div class="bar-item">
+      <div class="bar-label">Custo por MQL (CP-MQL)</div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Fevereiro</span>
+          <span class="bar-amount">R$43,31</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ant" style="width:100%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header">
+          <span class="bar-period">Março</span>
+          <span class="bar-amount">R$39,24</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill mar" style="width:91%"></div>
+        </div>
+      </div>
+      <span class="bar-delta">▼ -9,4% (menor = melhor)</span>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-icon">💡</div>
+    <div class="insight-text">
+      A grande virada de março foi na <strong>campanha BOFU (Apresentação - Lista++)</strong>: em fevereiro gerou 23 leads com <strong>0 MQL</strong>. Em março, com gasto 3× maior, gerou 64 leads — sendo <strong>15 MQL</strong>. O público mais qualificado (Lista++) precisou de mais volume para ativar.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider yellow"></div>
+
+<!-- ══════════════════════════════════════════════
+     QUALIFICAÇÃO MQL POR CAMPANHA (bege)
+══════════════════════════════════════════════ -->
+<section class="section-beige">
+  <div class="eyebrow">🍃 Qualificação de Leads</div>
+  <h2>MQL por Campanha</h2>
+  <p class="section-sub">Taxa de leads qualificados (busca de imóveis acima de R$1M) por campanha · Março 2026</p>
+
+  <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.06);">
+    <table class="mql-table">
+      <thead>
+        <tr>
+          <th>Campanha</th>
+          <th>Gasto</th>
+          <th>Leads</th>
+          <th>MQL</th>
+          <th>Taxa MQL</th>
+          <th>CP-MQL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div style="font-weight:800;color:#111;margin-bottom:4px;">CASAS · TOF</div>
+            <span class="tag-camp">Topo de Funil</span>
+          </td>
+          <td><strong>R$739,84</strong></td>
+          <td>56</td>
+          <td><span class="mql-num">32</span></td>
+          <td>
+            <div class="pct-bar">
+              <div class="pct-track"><div class="pct-fill" style="width:60%"></div></div>
+              <span class="pct-val">60%</span>
+            </div>
+          </td>
+          <td><strong style="color:var(--orange)">R$23,12</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:800;color:#111;margin-bottom:4px;">CASAS JURERE · TOF</div>
+            <span class="tag-camp">Topo de Funil</span>
+          </td>
+          <td><strong>R$309,69</strong></td>
+          <td>15</td>
+          <td><span class="mql-num">8</span></td>
+          <td>
+            <div class="pct-bar">
+              <div class="pct-track"><div class="pct-fill" style="width:57%"></div></div>
+              <span class="pct-val">57%</span>
+            </div>
+          </td>
+          <td><strong style="color:var(--orange)">R$38,71</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:800;color:#111;margin-bottom:4px;">APRESENTAÇÃO · BOFU</div>
+            <span class="tag-camp">Fundo de Funil</span>
+          </td>
+          <td><strong>R$1.108,74</strong></td>
+          <td>64</td>
+          <td><span class="mql-num">15</span></td>
+          <td>
+            <div class="pct-bar">
+              <div class="pct-track"><div class="pct-fill" style="width:27%"></div></div>
+              <span class="pct-val">27%</span>
+            </div>
+          </td>
+          <td><strong>R$73,92</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box-beige" style="margin-top:28px;">
+    <div class="insight-icon">🏆</div>
+    <div class="insight-text">
+      A campanha <strong>CASAS TOF</strong> foi a campeã de qualidade: <strong>60% dos leads</strong> são clientes buscando imóveis acima de R$1M, com o menor CP-MQL do mês — <strong>R$23 por lead qualificado</strong>. É a campanha com melhor relação custo-qualidade.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     CAMPANHAS DESTAQUE (preto)
+══════════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Campanhas do Mês</div>
+  <h2>As campanhas de março</h2>
+  <p class="section-sub">Desempenho individual por campanha · Meta Ads</p>
+
+  <div class="stars-grid">
+    <div class="star-card">
+      <span class="star-platform">Meta Ads · TOF</span>
+      <div class="star-name">CASAS · Topo de Funil</div>
+      <div class="star-kpi-lbl">Leads MQL Gerados</div>
+      <div class="star-kpi-val">32</div>
+      <div class="star-sub">CPL: R$13,21 · MQL: 60% · Gasto: R$739</div>
+    </div>
+    <div class="star-card">
+      <span class="star-platform">Meta Ads · BOFU</span>
+      <div class="star-name">APRESENTAÇÃO · Lista++ BOFU</div>
+      <div class="star-kpi-lbl">Leads Gerados</div>
+      <div class="star-kpi-val">64</div>
+      <div class="star-sub">CPL: R$17,32 · MQL: 27% · Gasto: R$1.109</div>
+    </div>
+    <div class="star-card">
+      <span class="star-platform">Meta Ads · TOF</span>
+      <div class="star-name">CASAS JURERE · Topo de Funil</div>
+      <div class="star-kpi-lbl">Taxa MQL</div>
+      <div class="star-kpi-val">57%</div>
+      <div class="star-sub">Leads: 15 · CP-MQL: R$38,71 · Gasto: R$310</div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:32px;">
+    <div class="insight-icon">📊</div>
+    <div class="insight-text">
+      <strong>Comparativo com fevereiro:</strong> CASAS TOF melhorou a taxa MQL de 42% para 60% com menos gasto. A campanha BOFU saiu de 0 MQL para 15 MQL — a Lista++ começou a converter. CASAS JURERE manteve 57% de taxa MQL, consistente nos dois meses.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider yellow"></div>
+
+<!-- ══════════════════════════════════════════════
+     CONCLUSÃO (preto)
+══════════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="eyebrow">Resumo Executivo</div>
+  <h2>O que os números dizem</h2>
+
+  <div class="cta-box">
+    <div class="cta-title">📊 Rafael Odone · Março 2026</div>
+    <div class="cta-stats">
+      <div>
+        <span class="cs-val">R$2.158</span>
+        <span class="cs-lbl">Investido</span>
+      </div>
+      <div>
+        <span class="cs-val">135</span>
+        <span class="cs-lbl">Leads Gerados</span>
+      </div>
+      <div>
+        <span class="cs-val">55</span>
+        <span class="cs-lbl">Leads MQL</span>
+      </div>
+      <div>
+        <span class="cs-val">R$39</span>
+        <span class="cs-lbl">Custo / MQL</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="conclusion-body">
+    Março entregou o que importa: mais leads qualificados com menos custo por qualificado. Com um investimento <strong>6% maior</strong> que fevereiro, geramos praticamente o mesmo volume de leads — mas com <strong>17% mais MQLs</strong> (55 contra 47). O custo por lead qualificado caiu de <strong>R$43 para R$39</strong>. A campanha TOF de casas foi a grande responsável, com 60% de taxa MQL — o melhor resultado desde o início das campanhas.
+  </p>
+
+  <div class="next-cards">
+    <div class="next-card">
+      <div class="next-card-lbl">✅ O que está funcionando</div>
+      <div class="next-card-text">CASAS TOF com 60% de MQL — campanha mais eficiente. Formulário segmentando corretamente clientes com perfil de compra acima de R$1M.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-card-lbl">⚠️ Ponto de atenção</div>
+      <div class="next-card-text">Alcance caiu 31% em relação a fevereiro (75k vs 109k). Frequência estável em 2,0x. Vale avaliar novos criativos ou expansão de público para ampliar o alcance sem sacrificar qualidade.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-card-lbl">🚀 Oportunidade</div>
+      <div class="next-card-text">A BOFU (Lista++) começou a gerar MQL pela primeira vez em março. Com mais verba e criativos de qualificação, essa campanha pode se tornar a principal fonte de leads de alto valor.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo"><span>MO</span>CA lab</div>
+  <div class="footer-text">
+    Rafael Odone · Meta Ads · Março 2026 · Fonte: Meta Ads API v22.0<br>
+    Gerado em: 08/04/2026 · mocalab.com.br
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const el = document.getElementById('progress-bar');
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    el.style.width = Math.min(pct, 100) + '%';
+  });
+</script>
+</body>
+</html>
